@@ -7,12 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* إعدادات الألوان الخاصة ببراند TRINEX */
+        /* إعدادات ألوان TRINEX */
         :root {
-            --bg-color: #050505;       /* أسود مطفي */
-            --text-color: #ffffff;     /* أبيض ناصع */
-            --accent-color: #333333;   /* رمادي غامق للفواصل */
-            --hover-glow: 0 0 20px rgba(255, 255, 255, 0.2); /* توهج خفيف */
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --card-border: #222;
         }
 
         body {
@@ -21,136 +20,122 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            /* إضافة ملمس خفيف للخلفية لتبدو فخمة */
-            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+            /* خلفية فخمة */
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        /* تنسيق الهيدر */
+        /* الهيدر واللوجو */
         header {
             text-align: center;
-            padding: 60px 20px 40px;
-            border-bottom: 1px solid var(--accent-color);
-            background: rgba(5, 5, 5, 0.9); /* خلفية شبه شفافة */
+            padding: 50px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        /* تنسيق اللوجو ليكون في المنتصف وبارز */
-        .logo-container {
-            width: 180px; /* حجم اللوجو */
-            margin: 0 auto;
-            position: relative;
+        .logo-container img {
+            width: 160px; /* حجم اللوجو */
+            transition: transform 0.4s;
         }
 
-        .logo-img {
-            width: 100%;
-            height: auto;
-            border-radius: 50%; /* إذا أردت جعله دائرياً، أو احذفه ليبقى مربعاً */
-            /* فلتر لجعل اللون الأسود في الصورة يندمج مع الموقع */
-            mix-blend-mode: lighten; 
-            transition: transform 0.5s ease;
-        }
-
-        .logo-img:hover {
-            transform: scale(1.1) rotate(2deg); /* حركة بسيطة عند الماوس */
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
+        .logo-container img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
         }
 
         .tagline {
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 4px;
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 15px;
-            text-transform: uppercase;
+            color: #666;
+            margin-top: 10px;
+            font-size: 0.8rem;
         }
 
         /* شبكة المنتجات */
-        .products-section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .products-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 40px;
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* تصميم الكارت - Modern & Sharp */
+        /* كارت المنتج */
         .product-card {
             background: #0a0a0a;
+            border: 1px solid var(--card-border);
             width: 300px;
-            border: 1px solid #222;
-            position: relative;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         .product-card:hover {
-            border-color: #fff; /* الإطار يصبح أبيض عند اللمس */
-            box-shadow: var(--hover-glow);
+            border-color: #fff;
             transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.05);
         }
 
-        .image-box {
+        /* منطقة الصورة */
+        .img-holder {
             width: 100%;
-            height: 320px;
+            height: 350px;
             overflow: hidden;
             background: #111;
         }
 
-        .image-box img {
+        .img-holder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%); /* الصور أبيض وأسود */
+            filter: grayscale(100%); /* أبيض وأسود */
             transition: 0.5s;
         }
 
-        .product-card:hover .image-box img {
-            filter: grayscale(0%); /* الصور تتلون عند الماوس */
+        .product-card:hover .img-holder img {
+            filter: grayscale(0%); /* ألوان عند اللمس */
             transform: scale(1.05);
         }
 
-        .info-box {
+        /* التفاصيل */
+        .details {
             padding: 20px;
-            text-align: left; /* جعل النصوص محاذية لليسار (ستايل عالمي) */
+            text-align: left;
         }
 
-        .product-title {
+        .details h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
             margin: 0;
+            font-size: 1.1rem;
+            color: #fff;
             text-transform: uppercase;
         }
 
-        .product-price {
-            font-family: 'Montserrat', sans-serif;
-            color: #aaa;
-            font-size: 1rem;
-            margin-top: 5px;
+        .price {
             display: block;
+            margin-top: 5px;
+            color: #888;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* زر الشراء */
-        .buy-btn {
+        .btn {
             display: block;
             width: 100%;
-            padding: 15px 0;
+            padding: 12px 0;
             margin-top: 15px;
-            background: transparent;
+            border: 1px solid #fff;
             color: #fff;
             text-decoration: none;
             text-align: center;
-            border: 1px solid #fff;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
+            font-weight: bold;
+            font-size: 0.9rem;
             transition: 0.3s;
         }
 
-        .buy-btn:hover {
+        .btn:hover {
             background: #fff;
             color: #000;
         }
@@ -158,9 +143,9 @@
         footer {
             text-align: center;
             padding: 40px;
-            border-top: 1px solid #222;
+            border-top: 1px solid #1a1a1a;
+            color: #444;
             font-size: 0.8rem;
-            color: #555;
         }
     </style>
 </head>
@@ -168,43 +153,43 @@
 
     <header>
         <div class="logo-container">
-            <img src="logo.jpg" alt="TRINEX Logo" class="logo-img">
+            <img src="logo.jpg" alt="TRINEX Logo">
         </div>
         <div class="tagline">FUTURE WEAR // EST. 2025</div>
     </header>
 
-    <div class="products-section">
+    <div class="products-grid">
 
         <div class="product-card">
-            <div class="image-box">
-                <img src="https://images.unsplash.com/photo-1512445239398-6d0c4c575b89?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Hoodie">
+            <div class="img-holder">
+                <img src="hode1.jpg" alt="Hoodie 1">
             </div>
-            <div class="info-box">
-                <h3 class="product-title">Trinex Basic Hoodie</h3>
-                <span class="product-price">650 EGP</span>
-                <a href="#" class="buy-btn">BUY NOW</a>
+            <div class="details">
+                <h3>Trinex Black Hoodie</h3>
+                <span class="price">650 EGP</span>
+                <a href="#" class="btn">BUY NOW</a>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="image-box">
-                <img src="https://images.unsplash.com/photo-1523396870717-3e66bd6f7563?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tee">
+            <div class="img-holder">
+                <img src="hode1.jpg" alt="Hoodie 2">
             </div>
-            <div class="info-box">
-                <h3 class="product-title">Oversized Tee Black</h3>
-                <span class="product-price">350 EGP</span>
-                <a href="#" class="buy-btn">BUY NOW</a>
+            <div class="details">
+                <h3>Oversized Tee</h3>
+                <span class="price">450 EGP</span>
+                <a href="#" class="btn">BUY NOW</a>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="image-box">
-                <img src="https://images.unsplash.com/photo-1552160793-eb8870c2cd2f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Pants">
+            <div class="img-holder">
+                <img src="hode3.jpg" alt="Hoodie 3">
             </div>
-            <div class="info-box">
-                <h3 class="product-title">Tactical Cargo</h3>
-                <span class="product-price">550 EGP</span>
-                <a href="#" class="buy-btn">BUY NOW</a>
+            <div class="details">
+                <h3>Tactical Vest</h3>
+                <span class="price">800 EGP</span>
+                <a href="#" class="btn">BUY NOW</a>
             </div>
         </div>
 
