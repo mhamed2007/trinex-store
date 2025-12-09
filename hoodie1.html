@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Black Hoodie</title>
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png"> <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; }
         
-        /* Footer & WhatsApp CSS */
+        /* Footer & WhatsApp Styles (نفس الستايل الموحد) */
         footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
         .social-icons { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
         .social-icons a { color: #888; font-size: 1.5rem; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; text-decoration: none; }
@@ -27,7 +25,7 @@
         .whatsapp-tooltip::after { content: ""; position: absolute; top: 50%; right: -6px; margin-top: -6px; border-width: 6px; border-style: solid; border-color: transparent transparent transparent #fff; }
         @keyframes fadeInTooltip { 0% { opacity: 0; transform: translateX(10px); } 20% { opacity: 1; transform: translateX(0); } 80% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; transform: translateX(10px); } }
 
-        /* Product CSS */
+        /* Product Styles */
         .back-link { position: absolute; top: 20px; left: 20px; color: #888; text-decoration: none; font-weight: bold; font-family: 'Montserrat'; z-index: 10; }
         .back-link:hover { color: #fff; }
         .product-container { max-width: 1100px; margin: 50px auto; padding: 20px; display: flex; flex-wrap: wrap; gap: 40px; }
@@ -107,23 +105,17 @@
             for(let dot of dots) dot.classList.remove('active');
             el.classList.add('active');
         }
-
-        // دالة المراجعة بالسكرول البطيء
         function openReview() {
             if(!selectedColor) { alert("من فضلك اختر اللون أولاً"); return; }
             document.getElementById('rev-color').innerText = selectedColor;
             document.getElementById('rev-size').innerText = document.getElementById('size-select').value;
             document.getElementById('rev-qty').innerText = document.getElementById('qty-input').value;
             
-            // إظهار الصندوق
             let panel = document.getElementById('review-panel');
             panel.style.display = 'block';
             setTimeout(() => { panel.style.opacity = '1'; }, 50);
-
-            // تشغيل السكرول البطيء (1500 مللي ثانية = 1.5 ثانية)
-            smoothScroll(panel, 1500);
+            smoothScroll(panel, 1500); // سكرول بطيء 1.5 ثانية
         }
-
         function goToCheckout() {
             let orderDetails = {
                 product: "Black Hoodie V1",
@@ -135,15 +127,13 @@
             window.location.href = "checkout.html";
         }
 
-        // دالة الحركة البطيئة المخصصة (Custom Slow Scroll)
+        // دالة السكرول البطيء المخصصة
         function smoothScroll(target, duration) {
             var targetPosition = target.getBoundingClientRect().top + window.scrollY;
             var startPosition = window.scrollY;
-            // عشان يجي في نص الشاشة بالظبط
             targetPosition = targetPosition - (window.innerHeight / 2) + (target.offsetHeight / 2);
             var distance = targetPosition - startPosition;
             var startTime = null;
-
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
                 var timeElapsed = currentTime - startTime;
@@ -151,8 +141,6 @@
                 window.scrollTo(0, run);
                 if (timeElapsed < duration) requestAnimationFrame(animation);
             }
-
-            // معادلة الحركة الناعمة (Easing)
             function ease(t, b, c, d) {
                 t /= d / 2;
                 if (t < 1) return c / 2 * t * t + b;
