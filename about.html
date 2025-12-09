@@ -4,27 +4,34 @@
     <meta charset="UTF-8">
     <title>TRINEX | About Us</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --bg-color: #000000; --text-color: #ffffff; }
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0; padding: 0;
-            text-align: center;
-        }
-        /* القائمة العلوية */
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; text-align: center; }
         nav { padding: 20px; background: rgba(0,0,0,0.9); border-bottom: 1px solid #333; }
         nav a { color: #888; text-decoration: none; margin: 0 15px; font-family: 'Montserrat'; font-weight: bold; transition: 0.3s; }
         nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid #fff; }
-
         .content-box { max-width: 800px; margin: 50px auto; padding: 20px; }
         h1 { font-family: 'Montserrat'; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px; }
         p { line-height: 1.8; color: #ccc; font-size: 1.1rem; }
         .signature { margin-top: 40px; font-family: 'Montserrat'; color: #555; font-size: 0.9rem; }
-        
         .back-btn { display: inline-block; margin-top: 30px; padding: 10px 30px; border: 1px solid #fff; color: #fff; text-decoration: none; font-weight: bold; transition: 0.3s; }
         .back-btn:hover { background: #fff; color: #000; }
+
+        /* Footer & WhatsApp */
+        footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
+        .social-icons { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
+        .social-icons a { color: #888; font-size: 1.5rem; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icons a:hover { color: #fff; transform: translateY(-3px); border-color: transparent; }
+        .social-icons a.facebook:hover { background: #1877F2; }
+        .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; }
+        .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .social-icons a.telegram:hover { background: #229ED9; }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
+        .whatsapp-float:hover { background-color: #1ebd56; transform: scale(1.1); }
+        .whatsapp-tooltip { position: absolute; right: 70px; background-color: #fff; color: #000; padding: 5px 12px; border-radius: 5px; font-family: 'Cairo', sans-serif; font-size: 0.8rem; font-weight: bold; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); opacity: 0; animation: fadeInTooltip 2s infinite; }
+        .whatsapp-tooltip::after { content: ""; position: absolute; top: 50%; right: -6px; margin-top: -6px; border-width: 6px; border-style: solid; border-color: transparent transparent transparent #fff; }
+        @keyframes fadeInTooltip { 0% { opacity: 0; transform: translateX(10px); } 20% { opacity: 1; transform: translateX(0); } 80% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; transform: translateX(10px); } }
     </style>
 </head>
 <body>
@@ -36,19 +43,24 @@
 
     <div class="content-box">
         <h1>Our Vision</h1>
-        <p>
-            بدأ TRINEX في 2025 بهدف واحد: تغيير مفهوم الـ Streetwear في مصر.
-            <br><br>
-            إحنا مش مجرد براند ملابس، إحنا بنقدم هوية بصرية قوية تعبر عن الجيل الجديد. 
-            تصميماتنا بتجمع بين الراحة، الخامة العالية، والشكل المستقبلي (Futuristic Style).
-            <br><br>
-            كل قطعة بتتصمم بعناية عشان تعيش معاك وتديك الثقة اللي محتاجها.
-        </p>
-        
+        <p>بدأ TRINEX في 2025 بهدف واحد: تغيير مفهوم الـ Streetwear في مصر...</p>
         <div class="signature">EST. 2025 // CAIRO</div>
-        
         <a href="index.html" class="back-btn">تسوق الآن</a>
     </div>
 
+    <footer>
+        <div class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="telegram" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+        </div>
+        <p style="font-size: 0.8rem; color: #666;">&copy; 2025 TRINEX. All Rights Reserved.</p>
+    </footer>
+
+    <a href="https://wa.me/201114519866" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <div class="whatsapp-tooltip">تحدث معنا 👋</div>
+    </a>
 </body>
 </html>
