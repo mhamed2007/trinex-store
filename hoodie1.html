@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Black Hoodie</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; /* تفعيل السكرول الناعم للصفحة كلها */ }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; }
         
         /* Footer & WhatsApp CSS */
         footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
@@ -42,10 +44,8 @@
         .review-btn { background-color: var(--green-btn); color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 30px; font-size: 1.1rem; border-radius: 5px; }
         .review-btn:hover { background-color: #00c853; }
         
-        /* تنسيق صندوق المراجعة */
-        #review-panel { display: none; background: #111; padding: 20px; border: 1px solid #444; border-radius: 10px; margin-top: 20px; animation: slideUp 0.5s ease; }
+        #review-panel { display: none; background: #111; padding: 20px; border: 1px solid #444; border-radius: 10px; margin-top: 20px; opacity: 0; transition: opacity 1s ease; }
         .confirm-btn { width: 100%; padding: 12px; background: #fff; color: #000; border: none; font-weight: bold; border-radius: 5px; margin-top: 10px; cursor: pointer; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -107,6 +107,8 @@
             for(let dot of dots) dot.classList.remove('active');
             el.classList.add('active');
         }
+
+        // دالة المراجعة بالسكرول البطيء
         function openReview() {
             if(!selectedColor) { alert("من فضلك اختر اللون أولاً"); return; }
             document.getElementById('rev-color').innerText = selectedColor;
@@ -116,11 +118,12 @@
             // إظهار الصندوق
             let panel = document.getElementById('review-panel');
             panel.style.display = 'block';
+            setTimeout(() => { panel.style.opacity = '1'; }, 50);
 
-            // === السحر: السكرول الناعم ===
-            // الأمر ده بيخلي الصفحة تنزل بنعومة لحد ما الصندوق يبقى في نص الشاشة
-            panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // تشغيل السكرول البطيء (1500 مللي ثانية = 1.5 ثانية)
+            smoothScroll(panel, 1500);
         }
+
         function goToCheckout() {
             let orderDetails = {
                 product: "Black Hoodie V1",
@@ -130,6 +133,33 @@
             };
             localStorage.setItem('trinexOrder', JSON.stringify(orderDetails));
             window.location.href = "checkout.html";
+        }
+
+        // دالة الحركة البطيئة المخصصة (Custom Slow Scroll)
+        function smoothScroll(target, duration) {
+            var targetPosition = target.getBoundingClientRect().top + window.scrollY;
+            var startPosition = window.scrollY;
+            // عشان يجي في نص الشاشة بالظبط
+            targetPosition = targetPosition - (window.innerHeight / 2) + (target.offsetHeight / 2);
+            var distance = targetPosition - startPosition;
+            var startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                var timeElapsed = currentTime - startTime;
+                var run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            // معادلة الحركة الناعمة (Easing)
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+            requestAnimationFrame(animation);
         }
     </script>
 </body>

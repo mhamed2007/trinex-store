@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Tactical Vest</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* نفس الستايل */
         :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; }
         
         footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
         .social-icons { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
@@ -18,7 +21,6 @@
         .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; }
         .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
         .social-icons a.telegram:hover { background: #229ED9; }
-
         .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
         .whatsapp-float:hover { background-color: #1ebd56; transform: scale(1.1); }
         .whatsapp-tooltip { position: absolute; right: 70px; background-color: #fff; color: #000; padding: 5px 12px; border-radius: 5px; font-family: 'Cairo', sans-serif; font-size: 0.8rem; font-weight: bold; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); opacity: 0; animation: fadeInTooltip 2s infinite; }
@@ -40,9 +42,8 @@
         select, input { background: #111; color: #fff; border: 1px solid #333; padding: 10px; margin-top: 5px; font-size: 1rem; width: 100%; box-sizing: border-box; }
         .review-btn { background-color: var(--green-btn); color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 30px; font-size: 1.1rem; border-radius: 5px; }
         .review-btn:hover { background-color: #00c853; }
-        #review-panel { display: none; background: #111; padding: 20px; border: 1px solid #444; border-radius: 10px; margin-top: 20px; animation: slideUp 0.5s ease; }
+        #review-panel { display: none; background: #111; padding: 20px; border: 1px solid #444; border-radius: 10px; margin-top: 20px; opacity: 0; transition: opacity 1s ease; }
         .confirm-btn { width: 100%; padding: 12px; background: #fff; color: #000; border: none; font-weight: bold; border-radius: 5px; margin-top: 10px; cursor: pointer; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -110,10 +111,10 @@
             document.getElementById('rev-size').innerText = document.getElementById('size-select').value;
             document.getElementById('rev-qty').innerText = document.getElementById('qty-input').value;
             
-            // إظهار الصندوق مع سكرول ناعم
             let panel = document.getElementById('review-panel');
             panel.style.display = 'block';
-            panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => { panel.style.opacity = '1'; }, 50);
+            smoothScroll(panel, 1500); 
         }
         function goToCheckout() {
             let orderDetails = {
@@ -124,6 +125,28 @@
             };
             localStorage.setItem('trinexOrder', JSON.stringify(orderDetails));
             window.location.href = "checkout.html";
+        }
+        // دالة السكرول
+        function smoothScroll(target, duration) {
+            var targetPosition = target.getBoundingClientRect().top + window.scrollY;
+            var startPosition = window.scrollY;
+            targetPosition = targetPosition - (window.innerHeight / 2) + (target.offsetHeight / 2);
+            var distance = targetPosition - startPosition;
+            var startTime = null;
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                var timeElapsed = currentTime - startTime;
+                var run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+            requestAnimationFrame(animation);
         }
     </script>
 </body>
