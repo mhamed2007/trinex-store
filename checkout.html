@@ -4,12 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Checkout</title>
-    <link rel="icon" type="image/png" href="favicon.png"> <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; --error: #ff3333; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; }
         
+        /* Navbar */
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: #888; text-decoration: none; font-family: 'Montserrat'; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .user-area { display: flex; align-items: center; gap: 10px; }
+        .login-btn { background: var(--green-btn); color: #000; padding: 5px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.8rem; transition: 0.3s; }
+        .login-btn:hover { background: #fff; }
+        .user-profile { display: none; align-items: center; gap: 5px; color: #fff; cursor: pointer; }
+        .user-profile i { font-size: 1.2rem; color: var(--green-btn); }
+
         .container { max-width: 600px; margin: 40px auto; background: #111; padding: 30px; border-radius: 10px; border: 1px solid #333; }
         h1 { text-align: center; color: var(--green-btn); margin-bottom: 30px; font-family: 'Montserrat'; text-transform: uppercase; }
         .form-group { margin-bottom: 20px; text-align: right; }
@@ -39,6 +52,19 @@
     </style>
 </head>
 <body>
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+        </div>
+        <div class="user-area">
+            <a href="login.html" id="loginBtn" class="login-btn"><i class="fas fa-user"></i> دخول</a>
+            <div id="userProfile" class="user-profile" onclick="logout()">
+                <span id="userNameTxt" style="font-size:0.8rem;">العميل</span>
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
         <h1>بيانات الشحن</h1>
@@ -73,20 +99,21 @@
     </a>
 
     <script>
-        let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
-        if(productData.product) {
-            document.getElementById('summ-product').innerText = "المنتج: " + productData.product;
-            document.getElementById('summ-details').innerText = `المواصفات: ${productData.color} | مقاس ${productData.size} | عدد ${productData.qty}`;
-        } else {
-            document.getElementById('summ-product').innerText = "لا يوجد منتج محدد!";
+        window.onload = function() { checkNavLogin(); loadOrder(); };
+        function loadOrder() {
+            let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
+            if(productData.product) {
+                document.getElementById('summ-product').innerText = "المنتج: " + productData.product;
+                document.getElementById('summ-details').innerText = `المواصفات: ${productData.color} | مقاس ${productData.size} | عدد ${productData.qty}`;
+            } else { document.getElementById('summ-product').innerText = "لا يوجد منتج محدد!"; }
         }
-
         function validateAndSend(e) {
             e.preventDefault();
             let name = document.getElementById('fullName').value;
             let p1 = document.getElementById('phone1').value;
             let p2 = document.getElementById('phone2').value;
             let addr = document.getElementById('address').value;
+            let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
 
             if (name.trim().split(' ').length < 3) { alert("يرجى كتابة الاسم ثلاثي على الأقل"); return; }
             if (p1 === p2) { document.getElementById('phoneError').style.display = 'block'; alert("رقم الهاتف الاحتياطي يجب أن يكون مختلفاً!"); return; } else { document.getElementById('phoneError').style.display = 'none'; }
@@ -95,6 +122,8 @@
             let message = `🛒 *طلب جديد من الموقع*%0a-----------------------%0a📦 *المنتج:* ${productData.product}%0a🎨 *اللون:* ${productData.color}%0a📏 *المقاس:* ${productData.size}%0a🔢 *العدد:* ${productData.qty}%0a-----------------------%0a👤 *الاسم:* ${name}%0a📱 *موبايل 1:* ${p1}%0a📞 *موبايل 2:* ${p2}%0a🏠 *العنوان:* ${addr}`;
             window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
         }
+        function checkNavLogin() { let isLogged = localStorage.getItem('trinex_user_logged'); let userPhone = localStorage.getItem('trinex_user_phone'); if(isLogged === 'true') { document.getElementById('loginBtn').style.display = 'none'; document.getElementById('userProfile').style.display = 'flex'; document.getElementById('userNameTxt').innerText = userPhone || "العميل"; } else { document.getElementById('loginBtn').style.display = 'block'; document.getElementById('userProfile').style.display = 'none'; } }
+        function logout() { if(confirm("هل تريد تسجيل الخروج؟")) { localStorage.removeItem('trinex_user_logged'); location.reload(); } }
     </script>
 </body>
 </html>

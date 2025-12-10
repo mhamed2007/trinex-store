@@ -10,31 +10,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --bg-color: #000000; --text-color: #ffffff; --accent: #333; }
+        :root { --bg-color: #000000; --text-color: #ffffff; --accent: #333; --green: #00e676; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 30px 30px; }
         
-        nav { padding: 20px; background: rgba(0,0,0,0.9); border-bottom: 1px solid #333; text-align: center; }
-        nav a { color: #888; text-decoration: none; margin: 0 15px; font-family: 'Montserrat'; font-weight: bold; transition: 0.3s; }
-        nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid #fff; }
+        /* === Navbar (موحد في كل الصفحات) === */
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: #888; text-decoration: none; font-family: 'Montserrat'; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .user-area { display: flex; align-items: center; gap: 10px; }
+        .login-btn { background: var(--green); color: #000; padding: 5px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.8rem; transition: 0.3s; }
+        .login-btn:hover { background: #fff; }
+        .user-profile { display: none; align-items: center; gap: 5px; color: #fff; cursor: pointer; }
+        .user-profile i { font-size: 1.2rem; color: var(--green); }
 
-        header { text-align: center; padding: 50px 20px; border-bottom: 2px solid var(--accent); background: rgba(0,0,0,0.9); }
-        .brand-logo { width: 150px; transition: transform 0.4s; }
+        /* Header */
+        header { text-align: center; padding: 40px 20px; border-bottom: 2px solid var(--accent); }
+        .brand-logo { width: 140px; transition: transform 0.4s; }
         .brand-logo:hover { transform: scale(1.1); filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
-        .tagline { font-family: 'Montserrat', sans-serif; letter-spacing: 5px; color: #888; margin-top: 15px; font-size: 0.8rem; text-transform: uppercase; }
+        .tagline { font-family: 'Montserrat'; letter-spacing: 5px; color: #666; margin-top: 10px; font-size: 0.8rem; text-transform: uppercase; }
         
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-        .card { background: #080808; border: 1px solid #222; width: 300px; transition: all 0.3s ease-in-out; }
-        .card:hover { border-color: #fff; transform: translateY(-10px); box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
-        .img-area { width: 100%; height: 350px; overflow: hidden; background: #111; }
+        /* Products */
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: #080808; border: 1px solid #222; width: 300px; transition: all 0.3s ease-in-out; border-radius: 10px; overflow: hidden; }
+        .card:hover { border-color: #555; transform: translateY(-5px); }
+        .img-area { width: 100%; height: 320px; overflow: hidden; background: #111; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
         .card:hover .img-area img { filter: grayscale(0%); transform: scale(1.05); }
-        .info { padding: 20px; text-align: left; }
-        .info h3 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; margin: 0; text-transform: uppercase; }
-        .price { display: block; margin-top: 8px; color: #bbb; font-family: 'Montserrat', sans-serif; font-weight: bold; }
-        .buy-btn { display: block; width: 100%; padding: 12px 0; margin-top: 20px; border: 1px solid #fff; background: transparent; color: #fff; text-decoration: none; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s; }
+
+        /* Action Buttons */
+        .card-actions { display: flex; justify-content: space-between; padding: 10px 15px; background: #111; border-bottom: 1px solid #222; }
+        .action-btn { background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        .action-btn:hover { color: #fff; transform: scale(1.2); }
+        .action-btn.liked { color: #ff0050; }
+        .action-btn.saved { color: #FFD700; }
+
+        .info { padding: 15px; text-align: right; }
+        .info h3 { font-family: 'Montserrat'; font-size: 1.1rem; margin: 0; color: #fff; text-transform: uppercase; }
+        .price { display: block; margin-top: 5px; color: #aaa; font-family: 'Montserrat'; font-weight: bold; }
+        .buy-btn { display: block; width: 100%; padding: 10px 0; margin-top: 15px; border: 1px solid #fff; background: transparent; color: #fff; text-decoration: none; text-align: center; font-family: 'Montserrat'; font-weight: 900; transition: 0.3s; border-radius: 5px; }
         .buy-btn:hover { background: #fff; color: #000; }
 
-        /* Footer & WhatsApp Styles */
+        /* Footer & WhatsApp */
         footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
         .social-icons { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
         .social-icons a { color: #888; font-size: 1.5rem; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; text-decoration: none; }
@@ -43,7 +60,6 @@
         .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; }
         .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
         .social-icons a.telegram:hover { background: #229ED9; }
-
         .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
         .whatsapp-float:hover { background-color: #1ebd56; transform: scale(1.1); }
         .whatsapp-tooltip { position: absolute; right: 70px; background-color: #fff; color: #000; padding: 5px 12px; border-radius: 5px; font-family: 'Cairo', sans-serif; font-size: 0.8rem; font-weight: bold; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); opacity: 0; animation: fadeInTooltip 2s infinite; }
@@ -54,8 +70,17 @@
 <body>
 
     <nav>
-        <a href="index.html" class="active">HOME</a>
-        <a href="about.html">ABOUT</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">HOME</a>
+            <a href="about.html">ABOUT</a>
+        </div>
+        <div class="user-area">
+            <a href="login.html" id="loginBtn" class="login-btn"><i class="fas fa-user"></i> دخول</a>
+            <div id="userProfile" class="user-profile" onclick="logout()">
+                <span id="userNameTxt" style="font-size:0.8rem;">العميل</span>
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
     </nav>
 
     <header>
@@ -66,14 +91,26 @@
     <div class="container">
         <div class="card">
             <div class="img-area"><img src="hode1.jpg"></div>
+            <div class="card-actions">
+                <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                <button class="action-btn" onclick="toggleSave(this)"><i class="far fa-bookmark"></i></button>
+            </div>
             <div class="info"><h3>Black Hoodie V1</h3><span class="price">650 EGP</span><a href="hoodie1.html" class="buy-btn">BUY NOW</a></div>
         </div>
         <div class="card">
             <div class="img-area"><img src="hode2.jpg"></div>
+            <div class="card-actions">
+                <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                <button class="action-btn" onclick="toggleSave(this)"><i class="far fa-bookmark"></i></button>
+            </div>
             <div class="info"><h3>Oversized Tee</h3><span class="price">400 EGP</span><a href="hoodie2.html" class="buy-btn">BUY NOW</a></div>
         </div>
         <div class="card">
             <div class="img-area"><img src="hode3.jpg"></div>
+            <div class="card-actions">
+                <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                <button class="action-btn" onclick="toggleSave(this)"><i class="far fa-bookmark"></i></button>
+            </div>
             <div class="info"><h3>Tactical Vest</h3><span class="price">850 EGP</span><a href="hoodie3.html" class="buy-btn">BUY NOW</a></div>
         </div>
     </div>
@@ -93,5 +130,26 @@
         <div class="whatsapp-tooltip">تحدث معنا 👋</div>
     </a>
 
+    <script>
+        window.onload = function() { checkNavLogin(); };
+        function checkNavLogin() {
+            let isLogged = localStorage.getItem('trinex_user_logged');
+            let userPhone = localStorage.getItem('trinex_user_phone');
+            if(isLogged === 'true') {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('userProfile').style.display = 'flex';
+                document.getElementById('userNameTxt').innerText = userPhone || "العميل";
+            } else {
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('userProfile').style.display = 'none';
+            }
+        }
+        function logout() {
+            if(confirm("هل تريد تسجيل الخروج؟")) { localStorage.removeItem('trinex_user_logged'); location.reload(); }
+        }
+        function toggleLike(btn) { if (!checkLogin()) return; let icon = btn.querySelector('i'); if (btn.classList.contains('liked')) { btn.classList.remove('liked'); icon.classList.replace('fas', 'far'); } else { btn.classList.add('liked'); icon.classList.replace('far', 'fas'); } }
+        function toggleSave(btn) { if (!checkLogin()) return; let icon = btn.querySelector('i'); if (btn.classList.contains('saved')) { btn.classList.remove('saved'); icon.classList.replace('fas', 'far'); } else { btn.classList.add('saved'); icon.classList.replace('far', 'fas'); } }
+        function checkLogin() { let isLogged = localStorage.getItem('trinex_user_logged'); if (!isLogged) { alert("يجب تسجيل الدخول أولاً!"); window.location.href = "login.html"; return false; } return true; }
+    </script>
 </body>
 </html>
