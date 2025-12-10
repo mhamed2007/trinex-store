@@ -6,128 +6,60 @@
     <title>TRINEX | تأكيد الطلب</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; --error: #ff3333; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; padding-top: 20px; }
-        
+        body { font-family: 'Cairo', sans-serif; background-color: #000; color: #fff; margin: 0; padding: 20px; }
         .container { max-width: 600px; margin: 20px auto; background: #111; padding: 30px; border-radius: 10px; border: 1px solid #333; }
-        h1 { text-align: center; color: var(--green-btn); margin-bottom: 20px; font-family: 'Montserrat'; text-transform: uppercase; }
-        
-        /* رسالة التعبئة التلقائية */
-        .auto-fill-badge { background: rgba(0, 230, 118, 0.1); color: var(--green-btn); padding: 10px; border-radius: 5px; text-align: center; font-size: 0.9rem; margin-bottom: 20px; display: none; border: 1px dashed var(--green-btn); }
-
+        h1 { text-align: center; color: #00e676; margin-bottom: 20px; font-family: 'Montserrat'; }
+        .auto-fill-badge { background: rgba(0, 230, 118, 0.1); color: #00e676; padding: 10px; border-radius: 5px; text-align: center; font-size: 0.9rem; margin-bottom: 20px; display: none; border: 1px dashed #00e676; }
         .form-group { margin-bottom: 20px; text-align: right; }
         label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; }
         input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #444; color: #fff; border-radius: 5px; font-family: 'Cairo'; font-size: 1rem; box-sizing: border-box; }
-        input:focus, textarea:focus { border-color: var(--green-btn); outline: none; }
-        
-        .submit-btn { width: 100%; padding: 15px; background: var(--green-btn); color: #000; border: none; font-weight: bold; font-size: 1.1rem; border-radius: 5px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .submit-btn:hover { background: #fff; }
-
-        .order-summary { background: #1a1a1a; padding: 15px; border-radius: 5px; margin-bottom: 30px; border-right: 3px solid var(--green-btn); }
-        .order-summary h3 { margin: 0 0 10px 0; font-size: 1rem; color: #888; }
-        .order-summary p { margin: 5px 0; font-weight: bold; }
-        
+        .submit-btn { width: 100%; padding: 15px; background: #00e676; color: #000; border: none; font-weight: bold; font-size: 1.1rem; border-radius: 5px; cursor: pointer; margin-top: 10px; }
         .back-link { display: block; text-align: center; margin-top: 15px; color: #888; text-decoration: none; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>تأكيد الطلب 🛒</h1>
-        
-        <div class="order-summary">
-            <h3>ملخص طلبك:</h3>
-            <p id="summ-product">المنتج: جاري التحميل...</p>
-            <p id="summ-details">التفاصيل: ...</p>
-        </div>
-
-        <div id="autoMsg" class="auto-fill-badge">✨ تم ملء بياناتك تلقائياً من الملف الشخصي</div>
-
+        <div class="order-summary"><h3>ملخص طلبك:</h3><p id="summ-product">المنتج: ...</p><p id="summ-details">...</p></div>
+        <div id="autoMsg" class="auto-fill-badge">✨ تم ملء بياناتك تلقائياً</div>
         <form id="checkoutForm" onsubmit="return validateAndSend(event)">
-            
-            <div class="form-group">
-                <label>الاسم الثلاثي</label>
-                <input type="text" id="fullName" placeholder="اكتب اسمك بالكامل" required>
-            </div>
-
-            <div class="form-group">
-                <label>رقم التليفون الأساسي</label>
-                <input type="tel" id="phone1" placeholder="01xxxxxxxxx" required pattern="[0-9]{11}">
-            </div>
-
-            <div class="form-group">
-                <label>رقم تليفون احتياطي</label>
-                <input type="tel" id="phone2" placeholder="رقم آخر مختلف" required pattern="[0-9]{11}">
-            </div>
-
-            <div class="form-group">
-                <label>العنوان بالتفصيل</label>
-                <textarea id="address" rows="3" placeholder="المحافظة - المنطقة - الشارع - رقم المنزل" required></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">تأكيد البيانات وإتمام الطلب ✅</button>
-            <a href="index.html" class="back-link">إلغاء وعودة</a>
+            <div class="form-group"><label>الاسم الثلاثي</label><input type="text" id="fullName" required></div>
+            <div class="form-group"><label>رقم الموبايل</label><input type="tel" id="phone1" required></div>
+            <div class="form-group"><label>رقم احتياطي</label><input type="tel" id="phone2"></div>
+            <div class="form-group"><label>العنوان</label><textarea id="address" rows="3" required></textarea></div>
+            <button type="submit" class="submit-btn">تأكيد وإرسال واتساب ✅</button>
+            <a href="index.html" class="back-link">إلغاء</a>
         </form>
     </div>
-
     <script>
-        // 1. عند التحميل: استرجاع المنتج + التعبئة التلقائية
         window.onload = function() {
-            // أ. عرض المنتج
             let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
             if(productData.product) {
                 document.getElementById('summ-product').innerText = "المنتج: " + productData.product;
                 document.getElementById('summ-details').innerText = `المواصفات: ${productData.color} | مقاس ${productData.size} | عدد ${productData.qty}`;
             }
-
-            // ب. التعبئة التلقائية (Auto-Fill)
             let savedInfo = JSON.parse(localStorage.getItem('trinex_saved_info'));
             if(savedInfo) {
                 document.getElementById('fullName').value = savedInfo.name || "";
                 document.getElementById('phone1').value = savedInfo.phone || "";
                 document.getElementById('phone2').value = savedInfo.phone2 || "";
-                // دمج المدينة مع العنوان
                 let fullAddress = (savedInfo.city ? savedInfo.city + " - " : "") + (savedInfo.address || "");
                 document.getElementById('address').value = fullAddress;
-
-                // إظهار رسالة النجاح
                 document.getElementById('autoMsg').style.display = 'block';
             }
         };
-
-        // 2. الفحص والإرسال للواتساب
         function validateAndSend(e) {
             e.preventDefault();
-
             let name = document.getElementById('fullName').value;
             let p1 = document.getElementById('phone1').value;
             let p2 = document.getElementById('phone2').value;
             let addr = document.getElementById('address').value;
             let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
-
-            if (p1 === p2) { alert("رقم الهاتف الاحتياطي يجب أن يكون مختلفاً!"); return; }
-
-            // تجهيز الرسالة
             let myNumber = "201114519866"; 
-            let message = `🛒 *طلب جديد من الموقع*%0a` +
-                          `-----------------------%0a` +
-                          `📦 *المنتج:* ${productData.product}%0a` +
-                          `🎨 *اللون:* ${productData.color}%0a` +
-                          `📏 *المقاس:* ${productData.size}%0a` +
-                          `🔢 *العدد:* ${productData.qty}%0a` +
-                          `-----------------------%0a` +
-                          `👤 *الاسم:* ${name}%0a` +
-                          `📱 *موبايل 1:* ${p1}%0a` +
-                          `📞 *موبايل 2:* ${p2}%0a` +
-                          `🏠 *العنوان:* ${addr}`;
-
-            // فتح واتساب
+            let message = `🛒 *طلب جديد*%0a📦 *المنتج:* ${productData.product}%0a🎨 *اللون:* ${productData.color}%0a📏 *المقاس:* ${productData.size}%0a🔢 *العدد:* ${productData.qty}%0a----------------%0a👤 *الاسم:* ${name}%0a📱 *موبايل:* ${p1}%0a📞 *احتياطي:* ${p2}%0a🏠 *العنوان:* ${addr}`;
             window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
         }
     </script>
-
 </body>
 </html>
