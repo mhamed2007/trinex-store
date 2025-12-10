@@ -3,40 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRINEX | تسجيل الدخول</title>
+    <title>TRINEX | Login</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Cairo'; text-align: center; padding: 50px 20px; }
-        .login-box { max-width: 400px; margin: 0 auto; background: #111; padding: 30px; border-radius: 10px; border: 1px solid #333; }
-        h1 { font-family: 'Montserrat'; color: #00e676; margin-bottom: 30px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 5px; box-sizing: border-box; font-family: 'Cairo'; }
-        button { width: 100%; padding: 12px; background: #00e676; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; font-size: 1.1rem; }
-        button:hover { background: #00c853; }
-        p { font-size: 0.9rem; color: #888; margin-top: 15px; }
+        :root { --bg: #000; --panel: #0a0a0a; --green: #00e676; --text: #fff; --border: #333; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 30px 30px; }
+
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; box-sizing: border-box; }
+        .brand-text { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 2px; }
+        .back-home { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .back-home:hover { color: #fff; }
+
+        .auth-container { width: 100%; max-width: 400px; background: var(--panel); margin: 120px auto 50px; padding: 30px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 0 30px rgba(0, 230, 118, 0.05); position: relative; z-index: 1; }
+        .auth-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .tab-btn { flex: 1; background: none; border: none; padding: 15px; color: #666; font-family: 'Cairo'; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; border-bottom: 2px solid transparent; }
+        .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+        .form-box { display: none; animation: fadeIn 0.5s; }
+        .form-box.active { display: block; }
+        h2 { margin: 0 0 10px; font-family: 'Montserrat'; text-transform: uppercase; color: #fff; }
+        p { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
+        .input-group { margin-bottom: 15px; position: relative; }
+        .input-group i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; }
+        input { width: 100%; padding: 12px 45px 12px 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; font-size: 1rem; transition: 0.3s; }
+        input:focus { border-color: var(--green); outline: none; box-shadow: 0 0 10px rgba(0, 230, 118, 0.1); }
+        .submit-btn { width: 100%; padding: 12px; background: var(--green); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { background: #fff; }
+        .submit-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+        .msg { font-size: 0.85rem; margin-top: 15px; text-align: center; min-height: 20px; }
+        .error { color: #ff3333; }
+        .success { color: var(--green); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <h1>تسجيل عضوية</h1>
-        <p>سجل بياناتك عشان تقدر تتابع العروض.</p>
-        
-        <input type="text" id="username" placeholder="الاسم (اختياري)">
-        <input type="tel" id="phone" placeholder="رقم الموبايل (إجباري)" required>
-        <input type="password" id="password" placeholder="كلمة المرور" required>
-        
-        <button id="regBtn" onclick="registerUser()">إنشاء حساب وتسجيل 🚀</button>
-        <p id="statusMsg"></p>
+    <nav>
+        <a href="index.html" class="brand-text">TRINEX</a>
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-right"></i> الرئيسية</a>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <button class="tab-btn active" onclick="switchTab('login')">تسجيل دخول</button>
+            <button class="tab-btn" onclick="switchTab('register')">إنشاء حساب</button>
+        </div>
+
+        <div id="loginForm" class="form-box active">
+            <h2>أهلاً بعودتك 👋</h2>
+            <p>سجل دخول لمتابعة التفاعل مع المنتجات.</p>
+            <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="l_phone" placeholder="رقم الموبايل"></div>
+            <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="l_pass" placeholder="كلمة المرور"></div>
+            <button class="submit-btn" id="l_btn" onclick="loginUser()">دخول</button>
+            <div id="l_msg" class="msg"></div>
+        </div>
+
+        <div id="registerForm" class="form-box">
+            <h2>حساب جديد 🚀</h2>
+            <p>انضم لعائلة TRINEX واستمتع بالمميزات.</p>
+            <div class="input-group"><i class="fas fa-user"></i><input type="text" id="r_name" placeholder="الاسم (اختياري)"></div>
+            <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="r_phone" placeholder="رقم الموبايل (مطلوب)"></div>
+            <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="r_pass" placeholder="تعيين كلمة مرور"></div>
+            <button class="submit-btn" id="r_btn" onclick="registerUser()">إنشاء الحساب</button>
+            <div id="r_msg" class="msg"></div>
+        </div>
     </div>
 
     <script type="module">
-        // استيراد الأدوات اللازمة من جوجل
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } 
+        import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } 
         from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // إعدادات مشروعك (اللي انت بعتها)
         const firebaseConfig = {
             apiKey: "AIzaSyDpC3kyBhy-mWsYjVAHxUuy2pqg_Sh0Z8U",
             authDomain: "trinex-store.firebaseapp.com",
@@ -46,55 +87,99 @@
             appId: "1:265387866506:web:1fb7786e186cf0abf43073"
         };
 
-        // تشغيل Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // دالة التسجيل
+        // --- 1. إنشاء حساب (بدون واتساب) ---
         window.registerUser = async function() {
-            let phone = document.getElementById('phone').value;
-            let pass = document.getElementById('password').value;
-            let name = document.getElementById('username').value;
-            let btn = document.getElementById('regBtn');
-            let status = document.getElementById('statusMsg');
+            let name = document.getElementById('r_name').value;
+            let phone = document.getElementById('r_phone').value;
+            let pass = document.getElementById('r_pass').value;
+            let btn = document.getElementById('r_btn');
+            let msg = document.getElementById('r_msg');
 
             if(phone.length < 11 || pass.length < 4) {
-                alert("يرجى كتابة رقم موبايل صحيح وكلمة مرور قوية");
-                return;
+                msg.className = 'msg error'; msg.innerText = "يرجى كتابة رقم صحيح وباسورد 4 أرقام"; return;
             }
 
-            btn.innerText = "جاري الحفظ...";
-            btn.disabled = true;
+            btn.disabled = true; btn.innerText = "جاري التحقق...";
 
             try {
-                // إضافة البيانات لقاعدة البيانات في جوجل
-                await addDoc(collection(db, "customers"), {
-                    name: name,
-                    phone: phone,
-                    password: pass, // تنبيه: في المشاريع الكبيرة بنشفر الباسورد
-                    createdAt: serverTimestamp() // وقت التسجيل
-                });
+                const q = query(collection(db, "customers"), where("phone", "==", phone));
+                const querySnapshot = await getDocs(q);
 
-                // حفظ في المتصفح
+                if (!querySnapshot.empty) {
+                    msg.className = 'msg error'; msg.innerText = "الرقم مسجل بالفعل! سجل دخول.";
+                    btn.disabled = false; btn.innerText = "إنشاء الحساب"; return;
+                }
+
+                await addDoc(collection(db, "customers"), { name: name, phone: phone, password: pass, createdAt: serverTimestamp() });
+
+                // حفظ البيانات للدخول التلقائي
                 localStorage.setItem('trinex_user_logged', 'true');
                 localStorage.setItem('trinex_user_phone', phone);
+                localStorage.setItem('trinex_user_name', name || "العميل"); // حفظ الاسم
 
-                status.style.color = "#00e676";
-                status.innerText = "تم التسجيل بنجاح! جاري التوجيه...";
-
-                // إرسال واتساب (اختياري)
-                let myNumber = "201114519866";
-                let msg = `👤 *عميل جديد سجل في الموقع*%0aالاسم: ${name}%0aالرقم: ${phone}`;
-                window.open(`https://wa.me/${myNumber}?text=${msg}`, '_blank');
-
-                setTimeout(() => { window.location.href = "index.html"; }, 2000);
+                msg.className = 'msg success'; msg.innerText = "تم بنجاح! جاري الدخول...";
+                
+                // التوجيه فوراً للصفحة الرئيسية
+                setTimeout(() => window.location.href = "index.html", 1000);
 
             } catch (e) {
-                console.error("Error adding document: ", e);
-                status.style.color = "red";
-                status.innerText = "حدث خطأ! تأكد من الإنترنت.";
-                btn.disabled = false;
-                btn.innerText = "حاول مرة أخرى";
+                console.error(e);
+                msg.className = 'msg error'; msg.innerText = "خطأ في الاتصال!";
+                btn.disabled = false; btn.innerText = "إنشاء الحساب";
+            }
+        }
+
+        // --- 2. تسجيل الدخول ---
+        window.loginUser = async function() {
+            let phone = document.getElementById('l_phone').value;
+            let pass = document.getElementById('l_pass').value;
+            let btn = document.getElementById('l_btn');
+            let msg = document.getElementById('l_msg');
+
+            if(!phone || !pass) { msg.className = 'msg error'; msg.innerText = "اكتب البيانات!"; return; }
+
+            btn.disabled = true; btn.innerText = "جاري البحث...";
+
+            try {
+                const q = query(collection(db, "customers"), where("phone", "==", phone), where("password", "==", pass));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    msg.className = 'msg error'; msg.innerText = "خطأ في الرقم أو كلمة المرور!";
+                    btn.disabled = false; btn.innerText = "دخول";
+                } else {
+                    // جلب اسم العميل من قاعدة البيانات
+                    let customerName = "العميل";
+                    querySnapshot.forEach((doc) => { customerName = doc.data().name || "العميل"; });
+
+                    localStorage.setItem('trinex_user_logged', 'true');
+                    localStorage.setItem('trinex_user_phone', phone);
+                    localStorage.setItem('trinex_user_name', customerName); // تحديث الاسم
+
+                    msg.className = 'msg success'; msg.innerText = "أهلاً بك! جاري التحويل...";
+                    setTimeout(() => window.location.href = "index.html", 1000);
+                }
+            } catch (e) {
+                console.error(e);
+                msg.className = 'msg error'; msg.innerText = "مشكلة في الإنترنت!";
+                btn.disabled = false; btn.innerText = "دخول";
+            }
+        }
+    </script>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active'));
+            if(tab === 'login') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
             }
         }
     </script>
