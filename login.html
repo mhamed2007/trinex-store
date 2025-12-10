@@ -5,64 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Login</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        :root { --bg: #000; --panel: #0a0a0a; --green: #00e676; --text: #fff; --border: #333; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 30px 30px; }
-        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; box-sizing: border-box; }
-        .brand-text { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; }
-        .back-home { color: #888; text-decoration: none; font-size: 0.9rem; }
-        .auth-container { width: 100%; max-width: 400px; background: var(--panel); margin: 120px auto 50px; padding: 30px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 0 30px rgba(0, 230, 118, 0.05); z-index: 1; }
+        /* نفس الستايل الموحد */
+        :root { --bg: #000; --text: #fff; --green: #00e676; --panel: #0a0a0a; --border: #333; }
+        body { font-family: 'Cairo'; background: var(--bg); color: var(--text); margin: 0; padding-top: 80px; min-height: 100vh; display: flex; flex-direction: column; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 30px 30px; }
+        
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: 0.3s; box-sizing: border-box; }
+        .nav-hidden { transform: translateY(-100%); }
+        .brand-text { font-family: 'Montserrat'; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .back-home { color: #888; text-decoration: none; font-weight: bold; }
+
+        .auth-container { width: 100%; max-width: 400px; background: var(--panel); margin: 50px auto; padding: 30px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 0 30px rgba(0, 230, 118, 0.05); }
         .auth-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
-        .tab-btn { flex: 1; background: none; border: none; padding: 15px; color: #666; font-family: 'Cairo'; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; border-bottom: 2px solid transparent; }
+        .tab-btn { flex: 1; background: none; border: none; padding: 15px; color: #666; font-family: 'Cairo'; font-weight: bold; cursor: pointer; border-bottom: 2px solid transparent; }
         .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
-        .form-box { display: none; animation: fadeIn 0.5s; } .form-box.active { display: block; }
-        h2 { margin: 0 0 10px; font-family: 'Montserrat'; color: #fff; }
+        .form-box { display: none; } .form-box.active { display: block; }
         .input-group { margin-bottom: 15px; position: relative; } .input-group i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; }
-        input { width: 100%; padding: 12px 45px 12px 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; font-size: 1rem; }
-        .submit-btn { width: 100%; padding: 12px; background: var(--green); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
+        input { width: 100%; padding: 12px 45px 12px 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 12px; background: var(--green); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .msg { font-size: 0.85rem; margin-top: 15px; text-align: center; } .error { color: #ff3333; } .success { color: var(--green); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        footer { background: var(--panel); padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: auto; }
+        .social-icons a { color: #888; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icons a:hover { color: #fff; border-color: transparent; transform: translateY(-3px); }
+        .social-icons a.facebook:hover { background: #1877F2; } .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; } .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); } .social-icons a.telegram:hover { background: #229ED9; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="brand-text">TRINEX</a><a href="index.html" class="back-home">الرئيسية</a></nav>
+    <nav id="navbar"><a href="index.html" class="brand-text">TRINEX</a><a href="index.html" class="back-home">الرئيسية</a></nav>
     <div class="auth-container">
         <div class="auth-tabs"><button class="tab-btn active" onclick="switchTab('login')">تسجيل دخول</button><button class="tab-btn" onclick="switchTab('register')">إنشاء حساب</button></div>
         <div id="loginForm" class="form-box active">
-            <h2>أهلاً بعودتك</h2><p style="color:#888;">سجل دخول للمتابعة.</p>
+            <h2 style="color:#fff; margin-top:0;">أهلاً بعودتك</h2>
             <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="l_phone" placeholder="رقم الموبايل"></div>
             <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="l_pass" placeholder="كلمة المرور"></div>
             <button class="submit-btn" id="l_btn" onclick="loginUser()">دخول</button><div id="l_msg" class="msg"></div>
         </div>
         <div id="registerForm" class="form-box">
-            <h2>حساب جديد</h2><p style="color:#888;">انضم إلينا الآن.</p>
+            <h2 style="color:#fff; margin-top:0;">حساب جديد</h2>
             <div class="input-group"><i class="fas fa-user"></i><input type="text" id="r_name" placeholder="الاسم (اختياري)"></div>
-            <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="r_phone" placeholder="رقم الموبايل (مطلوب)"></div>
+            <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="r_phone" placeholder="رقم الموبايل"></div>
             <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="r_pass" placeholder="تعيين كلمة مرور"></div>
             <button class="submit-btn" id="r_btn" onclick="registerUser()">إنشاء الحساب</button><div id="r_msg" class="msg"></div>
         </div>
     </div>
+    <footer><div class="social-icons"><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="instagram"><i class="fab fa-instagram"></i></a><a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a><a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a></div><p style="color:#666; font-size:0.8rem; margin-top:10px;">&copy; 2025 TRINEX.</p></footer>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        // مفاتيحك الخاصة
         const firebaseConfig = { apiKey: "AIzaSyDpC3kyBhy-mWsYjVAHxUuy2pqg_Sh0Z8U", authDomain: "trinex-store.firebaseapp.com", projectId: "trinex-store", storageBucket: "trinex-store.firebasestorage.app", messagingSenderId: "265387866506", appId: "1:265387866506:web:1fb7786e186cf0abf43073" };
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
-
         window.registerUser = async function() {
             let name = document.getElementById('r_name').value; let phone = document.getElementById('r_phone').value; let pass = document.getElementById('r_pass').value; let btn = document.getElementById('r_btn'); let msg = document.getElementById('r_msg');
             if(phone.length < 11 || pass.length < 4) { msg.className = 'msg error'; msg.innerText = "اكتب رقم صحيح وباسورد 4 أرقام"; return; }
             btn.disabled = true; btn.innerText = "جاري التحقق...";
             try {
-                const q = query(collection(db, "customers"), where("phone", "==", phone));
-                const querySnapshot = await getDocs(q);
+                const q = query(collection(db, "customers"), where("phone", "==", phone)); const querySnapshot = await getDocs(q);
                 if (!querySnapshot.empty) { msg.className = 'msg error'; msg.innerText = "الرقم مسجل بالفعل!"; btn.disabled = false; btn.innerText = "إنشاء الحساب"; return; }
                 await addDoc(collection(db, "customers"), { name: name, phone: phone, password: pass, createdAt: serverTimestamp() });
                 localStorage.setItem('trinex_user_logged', 'true'); localStorage.setItem('trinex_user_phone', phone); localStorage.setItem('trinex_user_name', name || "العميل");
-                msg.className = 'msg success'; msg.innerText = "تم التسجيل! جاري الدخول..."; setTimeout(() => window.location.href = "index.html", 1000);
+                msg.className = 'msg success'; msg.innerText = "تم التسجيل!"; setTimeout(() => window.location.href = "index.html", 1000);
             } catch (e) { console.error(e); msg.className = 'msg error'; msg.innerText = "خطأ في الاتصال!"; btn.disabled = false; btn.innerText = "إنشاء الحساب"; }
         }
         window.loginUser = async function() {
@@ -70,8 +74,7 @@
             if(!phone || !pass) { msg.className = 'msg error'; msg.innerText = "اكتب البيانات!"; return; }
             btn.disabled = true; btn.innerText = "جاري البحث...";
             try {
-                const q = query(collection(db, "customers"), where("phone", "==", phone), where("password", "==", pass));
-                const querySnapshot = await getDocs(q);
+                const q = query(collection(db, "customers"), where("phone", "==", phone), where("password", "==", pass)); const querySnapshot = await getDocs(q);
                 if (querySnapshot.empty) { msg.className = 'msg error'; msg.innerText = "بيانات خاطئة!"; btn.disabled = false; btn.innerText = "دخول"; } else {
                     let customerName = "العميل"; querySnapshot.forEach((doc) => { customerName = doc.data().name || "العميل"; });
                     localStorage.setItem('trinex_user_logged', 'true'); localStorage.setItem('trinex_user_phone', phone); localStorage.setItem('trinex_user_name', customerName);
@@ -81,10 +84,9 @@
         }
     </script>
     <script>
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active'));
-            if(tab === 'login') { document.querySelectorAll('.tab-btn')[0].classList.add('active'); document.getElementById('loginForm').classList.add('active'); } else { document.querySelectorAll('.tab-btn')[1].classList.add('active'); document.getElementById('registerForm').classList.add('active'); }
-        }
+        let lastScrollTop = 0; const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() { let scrollTop = window.pageYOffset || document.documentElement.scrollTop; if (scrollTop > lastScrollTop) { navbar.classList.add('nav-hidden'); } else { navbar.classList.remove('nav-hidden'); } lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; });
+        function switchTab(tab) { document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active')); if(tab === 'login') { document.querySelectorAll('.tab-btn')[0].classList.add('active'); document.getElementById('loginForm').classList.add('active'); } else { document.querySelectorAll('.tab-btn')[1].classList.add('active'); document.getElementById('registerForm').classList.add('active'); } }
     </script>
 </body>
 </html>
