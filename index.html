@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRINEX | Home</title>
+    <title>TRINEX | Future Wear</title>
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* === 1. الأساسيات === */
+        /* === 1. إعدادات الثيم الأسود (Dark Mode) === */
         :root {
-            --primary: #000;
-            --bg: #fff;
-            --text: #333;
+            --bg: #000000;
+            --card-bg: #080808;
+            --text: #ffffff;
+            --gray: #888;
+            --border: #222;
             --green: #00e676;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
@@ -23,87 +25,103 @@
         ul { list-style: none; }
 
         /* === 2. شريط الإعلانات === */
-        .top-bar { background-color: #000; color: #fff; text-align: center; padding: 8px; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; }
+        .top-bar { background-color: #111; color: #ccc; text-align: center; padding: 8px; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
 
-        /* === 3. النافبار (تعديل اللوجو النصي) === */
+        /* === 3. النافبار (الهيدر الجديد مع اللوجو المكتوب) === */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee;
+            padding: 20px 5%; background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 1000;
         }
         
-        /* ستايل اللوجو النصي الجديد */
+        /* اللوجو الكتابة (زي ما طلبت) */
         .logo-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;       /* حجم كبير */
-            font-weight: 900;      /* سمك الخط */
-            color: #000;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
             text-transform: uppercase;
-            letter-spacing: 3px;   /* تباعد الحروف */
-            line-height: 1;
+            letter-spacing: 3px;
         }
         
         .nav-links { display: flex; gap: 25px; }
-        .nav-links a { font-size: 1rem; font-weight: 600; color: #555; position: relative; }
-        .nav-links a:hover, .nav-links a.active { color: #000; }
+        .nav-links a { font-size: 0.95rem; font-weight: bold; color: var(--gray); font-family: 'Montserrat'; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
         
         /* أيقونات المستخدم */
         .nav-icons { display: flex; gap: 20px; align-items: center; }
-        .nav-icons i { font-size: 1.2rem; cursor: pointer; color: #333; }
+        .nav-icons i { font-size: 1.2rem; cursor: pointer; color: #fff; }
         .nav-icons i:hover { color: var(--green); }
         
-        .login-btn { border: 1px solid #000; padding: 5px 15px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        .login-btn:hover { background: #000; color: #fff; }
+        .login-btn { border: 1px solid #fff; color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .login-btn:hover { background: #fff; color: #000; }
 
-        /* === 4. البانر الرئيسي === */
+        /* === 4. البانر الرئيسي (Dark Hero) === */
         .hero {
             position: relative; height: 80vh; width: 100%;
             background: url('hode1.jpg') no-repeat center center/cover;
             display: flex; align-items: center; justify-content: center;
         }
-        .hero::after { content:''; position:absolute; inset:0; background: rgba(0,0,0,0.2); }
+        /* طبقة سوداء عشان الكلام يبان */
+        .hero::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, #000, rgba(0,0,0,0.4)); }
+        
         .hero-content { position: relative; z-index: 2; text-align: center; color: #fff; }
         .hero-content h1 { font-family: 'Montserrat'; font-size: 3.5rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 5px; font-weight: 900; }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; color: #ddd; }
         .hero-btn { background: #fff; color: #000; padding: 12px 40px; font-size: 1rem; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-btn:hover { background: #000; color: #fff; }
+        .hero-btn:hover { background: var(--green); color: #fff; }
 
-        /* === 5. المميزات === */
-        .features { display: flex; justify-content: space-around; flex-wrap: wrap; padding: 40px 10%; background: #fff; border-bottom: 1px solid #eee; text-align: center; }
+        /* === 5. قسم المميزات (التاتش الجديد) === */
+        .features {
+            display: flex; justify-content: space-around; flex-wrap: wrap;
+            padding: 40px 10%; background: #0a0a0a; border-bottom: 1px solid var(--border); text-align: center;
+        }
         .feature-box { flex: 1; min-width: 250px; margin: 10px; padding: 20px; }
-        .feature-box i { font-size: 2rem; color: #333; margin-bottom: 15px; }
-        .feature-box h3 { font-size: 1.1rem; margin-bottom: 10px; }
-        .feature-box p { color: #777; font-size: 0.9rem; }
+        .feature-box i { font-size: 2rem; color: #fff; margin-bottom: 15px; }
+        .feature-box h3 { font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+        .feature-box p { color: var(--gray); font-size: 0.9rem; }
 
-        /* === 6. المنتجات === */
-        .section-title { text-align: center; margin: 60px 0 40px; font-size: 2rem; font-weight: bold; position: relative; font-family: 'Montserrat'; text-transform: uppercase; }
+        /* === 6. المنتجات (ستايل أسود) === */
+        .section-title { text-align: center; margin: 60px 0 40px; font-size: 2rem; font-weight: bold; font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 2px; }
         
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 0 5% 80px; max-width: 1400px; margin: 0 auto; }
-        .product-card { background: #fff; transition: 0.3s; position: relative; }
-        .product-card:hover { transform: translateY(-5px); }
+        .products-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px; padding: 0 5% 80px; max-width: 1400px; margin: 0 auto;
+        }
+        .product-card { background: var(--card-bg); border: 1px solid var(--border); transition: 0.3s; position: relative; border-radius: 8px; overflow: hidden; }
+        .product-card:hover { transform: translateY(-5px); border-color: #555; }
         
-        .img-wrapper { position: relative; height: 350px; overflow: hidden; background: #f5f5f5; margin-bottom: 15px; }
-        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .product-card:hover img { transform: scale(1.05); }
+        .img-wrapper { position: relative; height: 350px; overflow: hidden; background: #111; margin-bottom: 15px; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(20%); }
+        .product-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
         
-        .action-overlay { position: absolute; bottom: 10px; right: 10px; left: 10px; display: flex; justify-content: center; gap: 10px; opacity: 0; transition: 0.3s; }
+        /* أزرار التفاعل العائمة */
+        .action-overlay {
+            position: absolute; bottom: 10px; right: 10px; left: 10px;
+            display: flex; justify-content: center; gap: 10px;
+            opacity: 0; transition: 0.3s;
+        }
         .product-card:hover .action-overlay { opacity: 1; bottom: 20px; }
         
-        .act-btn { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .act-btn:hover { background: #000; color: #fff; }
+        .act-btn {
+            width: 45px; height: 45px; border-radius: 50%; background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s; color: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-size: 1.2rem;
+        }
+        .act-btn:hover { background: var(--green); color: #fff; }
         
-        .p-details { text-align: center; }
-        .p-name { font-weight: bold; font-size: 1rem; display: block; margin-bottom: 5px; font-family: 'Montserrat'; text-transform: uppercase; }
-        .p-price { color: #888; font-family: 'Montserrat'; font-weight: bold; font-size: 0.9rem; }
+        .p-details { text-align: center; padding-bottom: 20px; }
+        .p-name { font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 5px; font-family: 'Montserrat'; text-transform: uppercase; color: #fff; }
+        .p-price { color: var(--gray); font-family: 'Montserrat'; font-weight: bold; font-size: 0.9rem; }
 
         /* === 7. الفوتر === */
-        footer { background: #111; color: #fff; padding: 60px 5%; margin-top: 50px; }
+        footer { background: #050505; color: #fff; padding: 60px 5%; margin-top: 50px; border-top: 1px solid var(--border); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-col h4 { margin-bottom: 20px; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col h4 { margin-bottom: 20px; color: #fff; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--green); display: inline-block; padding-bottom: 5px; }
         .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a { color: #aaa; font-size: 0.9rem; }
+        .footer-col ul li a { color: var(--gray); font-size: 0.9rem; }
         .footer-col ul li a:hover { color: #fff; padding-right: 5px; }
-        .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #333; color: #555; font-size: 0.8rem; }
+        .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); color: #444; font-size: 0.8rem; }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -116,7 +134,7 @@
 </head>
 <body>
 
-    <div class="top-bar">شحن مجاني للطلبات فوق 1000 جنيه لفترة محدودة</div>
+    <div class="top-bar">شحن مجاني للطلبات فوق 1000 جنيه لفترة محدودة ⚡</div>
 
     <nav>
         <a href="index.html" class="logo-text">TRINEX</a>
@@ -130,10 +148,11 @@
         <div class="nav-icons">
             <i class="fas fa-search"></i>
             <i class="fas fa-shopping-bag"></i>
+            
             <div id="userArea">
                 <a href="login.html" id="loginBtn" class="login-btn">دخول</a>
                 <div id="profileIcon" style="display:none; align-items:center; gap:5px;" onclick="logout()">
-                    <i class="fas fa-user-circle" style="font-size:1.5rem;"></i>
+                    <i class="fas fa-user-circle" style="font-size:1.5rem; color: #fff;"></i>
                 </div>
             </div>
         </div>
@@ -141,134 +160,12 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>New Collection</h1>
-            <p>اكتشف أحدث صيحات الستريت وير</p>
+            <h1>Future Wear</h1>
+            <p>مفهوم جديد للستريت وير المصري</p>
             <button class="hero-btn" onclick="document.getElementById('products').scrollIntoView()">تسوق الآن</button>
         </div>
     </section>
 
     <section class="features">
         <div class="feature-box">
-            <i class="fas fa-truck"></i>
-            <h3>شحن سريع</h3>
-            <p>توصيل لجميع المحافظات</p>
-        </div>
-        <div class="feature-box">
-            <i class="fas fa-box-open"></i>
-            <h3>معاينة قبل الاستلام</h3>
-            <p>قيس براحتك قبل الدفع</p>
-        </div>
-        <div class="feature-box">
-            <i class="fas fa-undo"></i>
-            <h3>استبدال واسترجاع</h3>
-            <p>سياسة مرنة خلال 14 يوم</p>
-        </div>
-    </section>
-
-    <h2 class="section-title" id="products">Trending Now</h2>
-
-    <div class="products-grid">
-        <div class="product-card">
-            <div class="img-wrapper">
-                <a href="hoodie1.html"><img src="hode1.jpg"></a>
-                <div class="action-overlay">
-                    <div class="act-btn" onclick="toggleAction(this)"><i class="far fa-heart"></i></div>
-                </div>
-            </div>
-            <div class="p-details">
-                <a href="hoodie1.html" class="p-name">Black Hoodie V1</a>
-                <span class="p-price">650 EGP</span>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="img-wrapper">
-                <a href="hoodie2.html"><img src="hode2.jpg"></a>
-                <div class="action-overlay">
-                    <div class="act-btn" onclick="toggleAction(this)"><i class="far fa-heart"></i></div>
-                </div>
-            </div>
-            <div class="p-details">
-                <a href="hoodie2.html" class="p-name">Oversized Tee</a>
-                <span class="p-price">400 EGP</span>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="img-wrapper">
-                <a href="hoodie3.html"><img src="hode3.jpg"></a>
-                <div class="action-overlay">
-                    <div class="act-btn" onclick="toggleAction(this)"><i class="far fa-heart"></i></div>
-                </div>
-            </div>
-            <div class="p-details">
-                <a href="hoodie3.html" class="p-name">Tactical Vest</a>
-                <span class="p-price">850 EGP</span>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>TRINEX</h4>
-                <p style="color:#aaa; font-size:0.9rem;">براند مصري بيقدم جودة عالمية.</p>
-            </div>
-            <div class="footer-col">
-                <h4>القائمة</h4>
-                <ul>
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#">الأقسام</a></li>
-                    <li><a href="#">تواصل معنا</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>تابعنا</h4>
-                <div style="font-size:1.5rem;">
-                    <a href="#" style="color:#fff; margin-left:10px;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="color:#fff;"><i class="fab fa-facebook"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">&copy; 2025 TRINEX. All Rights Reserved.</div>
-    </footer>
-
-    <a href="https://wa.me/201114519866" style="position:fixed; bottom:20px; left:20px; background:#25D366; color:#fff; width:55px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; box-shadow:0 5px 15px rgba(0,0,0,0.2); z-index:999;">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <script>
-        window.onload = function() {
-            let isLogged = localStorage.getItem('trinex_user_logged');
-            if(isLogged === 'true') {
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('profileIcon').style.display = 'flex';
-            }
-        };
-
-        function logout() {
-            if(confirm("تسجيل الخروج؟")) {
-                localStorage.removeItem('trinex_user_logged');
-                location.reload();
-            }
-        }
-
-        function toggleAction(btn) {
-            let isLogged = localStorage.getItem('trinex_user_logged');
-            if(isLogged !== 'true') {
-                if(confirm("سجل دخول عشان تعمل لايك ❤️")) window.location.href = "login.html";
-                return;
-            }
-            let icon = btn.querySelector('i');
-            if(icon.classList.contains('far')) {
-                icon.classList.replace('far', 'fas');
-                btn.style.color = 'red';
-            } else {
-                icon.classList.replace('fas', 'far');
-                btn.style.color = '#333';
-            }
-        }
-    </script>
-
-</body>
-</html>
+            <i class="fas fa-truck">
