@@ -5,39 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | About Us</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --bg-color: #000000; --text-color: #ffffff; --green: #00e676; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; text-align: center; }
+        /* نفس الستايل الموحد (Dark Mode) */
+        :root { --bg-color: #000000; --text-color: #ffffff; --accent: #333; --green: #00e676; }
         
-        /* Navbar */
-        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .nav-links { display: flex; gap: 15px; }
-        .nav-links a { color: #888; text-decoration: none; font-family: 'Montserrat'; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
-        .user-area { display: flex; align-items: center; gap: 10px; }
-        .login-btn { background: var(--green); color: #000; padding: 5px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.8rem; transition: 0.3s; }
-        .login-btn:hover { background: #fff; }
-        .user-profile { display: none; align-items: center; gap: 5px; color: #fff; cursor: pointer; }
-        .user-profile i { font-size: 1.2rem; color: var(--green); }
-
-        /* تعديل الموبايل: خلينا العرض مرن */
-        .content-box { 
-            width: 90%; /* ياخد 90% من الشاشة في الموبايل */
-            max-width: 800px; /* ميعديش 800 في الكمبيوتر */
-            margin: 50px auto; 
-            padding: 20px; 
-            box-sizing: border-box; 
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            margin: 0; padding: 0; padding-top: 80px; /* مسافة للنافبار */
+            background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); 
+            background-size: 30px 30px; 
+            text-align: center;
         }
         
-        h1 { font-family: 'Montserrat'; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px; }
-        p { line-height: 1.8; color: #ccc; font-size: 1.1rem; }
-        .signature { margin-top: 40px; font-family: 'Montserrat'; color: #555; font-size: 0.9rem; }
-        .back-btn { display: inline-block; margin-top: 30px; padding: 10px 30px; border: 1px solid #fff; color: #fff; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .back-btn:hover { background: #fff; color: #000; }
+        /* === Navbar الذكي === */
+        nav { 
+            background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; 
+            padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; 
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; 
+            transition: transform 0.3s ease-in-out; box-sizing: border-box;
+        }
+        .nav-hidden { transform: translateY(-100%); }
 
+        .brand-text { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #ccc; text-decoration: none; font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 0.95rem; transition: 0.3s; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; right: 0; background: var(--green); transition: 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-icons { display: flex; gap: 15px; align-items: center; }
+        .nav-icons i { font-size: 1.1rem; color: #fff; cursor: pointer; transition: 0.3s; }
+        .nav-icons i:hover { color: var(--green); }
+
+        .user-area { display: flex; align-items: center; }
+        .login-btn { background: var(--green); color: #000; padding: 6px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
+        .login-btn:hover { background: #fff; }
+        .user-profile { display: none; align-items: center; gap: 8px; color: #fff; cursor: pointer; border: 1px solid #333; padding: 5px 10px; border-radius: 20px; }
+        .user-profile i { font-size: 1.2rem; color: var(--green); }
+
+        /* المحتوى الخاص بصفحة من نحن */
+        .content-box { 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 40px 20px;
+            background: #080808;
+            border: 1px solid #222;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        h1 { font-family: 'Montserrat'; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px; color: var(--green); }
+        p { line-height: 1.8; color: #ccc; font-size: 1.1rem; }
+        .signature { margin-top: 40px; font-family: 'Montserrat'; color: #555; font-size: 0.9rem; letter-spacing: 3px; }
+        
+        .back-btn { 
+            display: inline-block; margin-top: 30px; padding: 12px 40px; 
+            border: 1px solid var(--green); color: var(--green); 
+            text-decoration: none; font-weight: bold; transition: 0.3s; 
+            border-radius: 5px; font-family: 'Montserrat';
+        }
+        .back-btn:hover { background: var(--green); color: #000; }
+
+        /* Footer */
         footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
         .social-icons { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
         .social-icons a { color: #888; font-size: 1.5rem; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; text-decoration: none; }
@@ -52,29 +88,55 @@
         .whatsapp-tooltip::after { content: ""; position: absolute; top: 50%; right: -6px; margin-top: -6px; border-width: 6px; border-style: solid; border-color: transparent transparent transparent #fff; }
         @keyframes fadeInTooltip { 0% { opacity: 0; transform: translateX(10px); } 20% { opacity: 1; transform: translateX(0); } 80% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; transform: translateX(10px); } }
 
-        @media (max-width: 600px) { h1 { font-size: 1.8rem; } p { font-size: 1rem; } }
+        @media (max-width: 768px) {
+            nav { padding: 15px; flex-wrap: wrap; }
+            .nav-links { display: none; width: 100%; margin-top: 10px; order: 3; flex-direction: column; align-items: center; gap: 10px; }
+            .brand-text { font-size: 1.5rem; }
+            .content-box { width: 90%; padding: 20px; }
+            h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
-    <nav>
+
+    <nav id="navbar">
+        <a href="index.html" class="brand-text">TRINEX</a>
+
         <div class="nav-links">
-            <a href="index.html">HOME</a>
-            <a href="about.html" class="active">ABOUT</a>
+            <a href="index.html">الرئيسية</a>
+            <a href="about.html" class="active">من نحن</a>
         </div>
-        <div class="user-area">
-            <a href="login.html" id="loginBtn" class="login-btn"><i class="fas fa-user"></i> دخول</a>
-            <div id="userProfile" class="user-profile" onclick="logout()">
-                <span id="userNameTxt" style="font-size:0.8rem;">العميل</span>
-                <i class="fas fa-user-circle"></i>
+
+        <div class="nav-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-bag"></i>
+            
+            <div class="user-area">
+                <a href="login.html" id="loginBtn" class="login-btn">
+                    <i class="fas fa-user"></i> دخول
+                </a>
+                <div id="userProfile" class="user-profile">
+                    <span id="userNameTxt" style="font-size:0.8rem; font-family:'Cairo';">اسم العميل</span>
+                    <i class="fas fa-user-circle"></i>
+                </div>
             </div>
         </div>
     </nav>
 
     <div class="content-box">
         <h1>Our Vision</h1>
-        <p>بدأ TRINEX في 2025 بهدف واحد: تغيير مفهوم الـ Streetwear في مصر. إحنا مش مجرد براند ملابس، إحنا بنقدم هوية بصرية قوية تعبر عن الجيل الجديد.</p>
+        <p>
+            بدأ TRINEX في 2025 بهدف واحد: تغيير مفهوم الـ Streetwear في مصر.
+            <br><br>
+            إحنا مش مجرد براند ملابس، إحنا بنقدم هوية بصرية قوية تعبر عن الجيل الجديد. 
+            تصميماتنا بتجمع بين الراحة، الخامة العالية، والشكل المستقبلي (Futuristic Style).
+            <br><br>
+            كل قطعة بتتصمم بعناية عشان تعيش معاك وتديك الثقة اللي محتاجها.
+        </p>
+        
         <div class="signature">EST. 2025 // CAIRO</div>
-        <a href="index.html" class="back-btn">تسوق الآن</a>
+        
+        <a href="index.html" class="back-btn">ابدأ التسوق</a>
     </div>
 
     <footer>
@@ -93,20 +155,41 @@
     </a>
 
     <script>
+        // === كود النافبار الذكي ===
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                navbar.classList.add('nav-hidden');
+            } else {
+                navbar.classList.remove('nav-hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // تشغيل التحقق من الدخول
         window.onload = function() { checkNavLogin(); };
+
         function checkNavLogin() {
             let isLogged = localStorage.getItem('trinex_user_logged');
-            let userPhone = localStorage.getItem('trinex_user_phone');
+            let userName = localStorage.getItem('trinex_user_name'); // جلب الاسم المحفوظ
+            
             if(isLogged === 'true') {
                 document.getElementById('loginBtn').style.display = 'none';
                 document.getElementById('userProfile').style.display = 'flex';
-                document.getElementById('userNameTxt').innerText = userPhone || "العميل";
+                document.getElementById('userNameTxt').innerText = userName || "حسابي";
+                
+                // الذهاب للبروفايل عند الضغط
+                document.getElementById('userProfile').onclick = function() {
+                    window.location.href = "profile.html";
+                };
             } else {
                 document.getElementById('loginBtn').style.display = 'block';
                 document.getElementById('userProfile').style.display = 'none';
             }
         }
-        function logout() { if(confirm("هل تريد تسجيل الخروج؟")) { localStorage.removeItem('trinex_user_logged'); location.reload(); } }
     </script>
 </body>
 </html>
