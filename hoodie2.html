@@ -5,171 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Oversized Tee</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; padding-top: 90px; }
+        :root { --bg: #000; --text: #fff; --green: #00e676; --panel: #0a0a0a; --border: #333; }
+        body { font-family: 'Cairo'; background: var(--bg); color: var(--text); margin: 0; padding-top: 80px; }
         
-        /* Navbar */
-        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: transform 0.3s ease-in-out; box-sizing: border-box; }
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: 0.3s; box-sizing: border-box; }
         .nav-hidden { transform: translateY(-100%); }
-        .brand-text { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #ccc; text-decoration: none; font-family: 'Cairo'; font-weight: 600; font-size: 0.95rem; transition: 0.3s; position: relative; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; right: 0; background: var(--green-btn); transition: 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
-        
-        .nav-icons { display: flex; gap: 15px; align-items: center; }
-        .nav-icons i { font-size: 1.1rem; color: #fff; cursor: pointer; transition: 0.3s; } .nav-icons i:hover { color: var(--green-btn); }
-        .user-area { display: flex; align-items: center; }
-        .login-btn { background: var(--green-btn); color: #000; padding: 6px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+        .brand-text { font-family: 'Montserrat'; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 20px; } .nav-links a { color: #ccc; text-decoration: none; font-weight: 600; transition: 0.3s; } .nav-links a:hover { color: #fff; }
+        .nav-icons i { color: #fff; font-size: 1.1rem; cursor: pointer; } .nav-icons i:hover { color: var(--green); }
+        .user-area { display: flex; align-items: center; } .login-btn { background: var(--green); color: #000; padding: 6px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
         .user-profile { display: none; align-items: center; gap: 8px; color: #fff; cursor: pointer; border: 1px solid #333; padding: 5px 10px; border-radius: 20px; }
-        .user-profile i { font-size: 1.2rem; color: var(--green-btn); }
 
-        /* Product */
         .product-container { max-width: 1100px; margin: 20px auto; padding: 20px; display: flex; flex-wrap: wrap; gap: 40px; }
-        .gallery { flex: 1; min-width: 300px; } 
-        .main-img { width: 100%; border-radius: 10px; border: 1px solid #333; }
+        .gallery { flex: 1; min-width: 300px; } .main-img { width: 100%; border-radius: 10px; border: 1px solid #333; }
         .details { flex: 1; min-width: 300px; text-align: right; }
-        h1 { font-family: 'Montserrat'; text-transform: uppercase; font-size: 2rem; margin: 0; }
+        h1 { font-family: 'Montserrat'; font-size: 2rem; margin: 0; }
         .price { font-size: 1.5rem; color: #ccc; font-family: 'Montserrat'; display: block; margin-bottom: 20px; font-weight: bold; }
-        
-        .colors { display: flex; gap: 10px; margin-top: 5px; } 
-        .color-dot { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid #333; transition: 0.3s; } 
-        .color-dot:hover { transform: scale(1.1); }
-        .color-dot.active { border-color: #fff; transform: scale(1.1); box-shadow: 0 0 10px #fff; }
-        
-        select, input { background: #111; color: #fff; border: 1px solid #333; padding: 12px; width: 100%; box-sizing: border-box; border-radius: 5px; margin-top: 5px; font-family: 'Montserrat'; font-size: 1rem; }
-        
-        .review-btn { background-color: var(--green-btn); color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 30px; border-radius: 5px; font-size: 1.1rem; transition: 0.3s; }
-        .review-btn:hover { background-color: #fff; }
-        
-        #review-panel { display: none; background: #151515; padding: 20px; border: 1px solid #333; border-radius: 10px; margin-top: 20px; opacity: 0; transition: opacity 0.5s ease; border-right: 4px solid var(--green-btn); }
-        .confirm-btn { width: 100%; padding: 12px; background: #fff; color: #000; border: none; font-weight: bold; border-radius: 5px; margin-top: 15px; cursor: pointer; transition: 0.3s; }
-        .confirm-btn:hover { background: #ccc; }
+        .colors { display: flex; gap: 10px; margin-top: 5px; } .color-dot { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid #333; } .color-dot.active { border-color: #fff; transform: scale(1.1); }
+        select, input { background: #111; color: #fff; border: 1px solid #333; padding: 12px; width: 100%; box-sizing: border-box; margin-top: 5px; }
+        .review-btn { background: var(--green); color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 30px; border-radius: 5px; }
+        #review-panel { display: none; background: var(--panel); padding: 20px; border: 1px solid var(--border); border-radius: 10px; margin-top: 20px; opacity: 0; transition: 0.5s ease; border-right: 4px solid var(--green); }
+        .confirm-btn { width: 100%; padding: 12px; background: #fff; color: #000; border: none; font-weight: bold; border-radius: 5px; margin-top: 15px; cursor: pointer; }
 
-        /* Footer & Social Icons */
-        footer { background-color: #0a0a0a; color: #fff; text-align: center; padding: 40px 20px; border-top: 1px solid #222; margin-top: 50px; }
-        .social-icons { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
-        .social-icons a { color: #888; font-size: 1.5rem; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icons a:hover { color: #fff; transform: translateY(-3px); border-color: transparent; }
-        /* ألوان الأيقونات */
-        .social-icons a.facebook:hover { background: #1877F2; }
-        .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; }
-        .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .social-icons a.telegram:hover { background: #229ED9; }
-
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; text-decoration: none; transition: 0.3s; }
-        .whatsapp-float:hover { background-color: #1ebd56; transform: scale(1.1); }
-
+        footer { background: var(--panel); padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
+        .social-icons a { color: #888; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icons a:hover { color: #fff; border-color: transparent; transform: translateY(-3px); }
+        .social-icons a.facebook:hover { background: #1877F2; } .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; } .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); } .social-icons a.telegram:hover { background: #229ED9; }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; text-decoration: none; }
         @media (max-width: 768px) { .nav-links { display: none; } }
     </style>
 </head>
 <body>
-
     <nav id="navbar">
         <a href="index.html" class="brand-text">TRINEX</a>
-        <div class="nav-links">
-            <a href="index.html">الرئيسية</a>
-            <a href="winter.html">شتوي</a>
-            <a href="summer.html">صيفي</a>
-            <a href="sweatpants.html">سويت بانتس</a>
-            <a href="about.html">من نحن</a>
-        </div>
-        <div class="nav-icons">
-            <i class="fas fa-search"></i>
-            <i class="fas fa-shopping-bag"></i>
-            <div class="user-area">
-                <a href="login.html" id="loginBtn" class="login-btn"><i class="fas fa-user"></i> دخول</a>
-                <div id="userProfile" class="user-profile" onclick="location.href='profile.html'">
-                    <span id="userNameTxt" style="font-size:0.8rem; font-family:'Cairo';">العميل</span>
-                    <i class="fas fa-user-circle"></i>
-                </div>
-            </div>
-        </div>
+        <div class="nav-links"><a href="index.html">الرئيسية</a><a href="winter.html">شتوي</a><a href="summer.html">صيفي</a><a href="sweatpants.html">سويت بانتس</a><a href="about.html">من نحن</a></div>
+        <div class="nav-icons"><i class="fas fa-search"></i><a href="cart.html" style="color:#fff;"><i class="fas fa-shopping-bag"></i></a><div class="user-area"><a href="login.html" id="loginBtn" class="login-btn">دخول</a><div id="userProfile" class="user-profile" onclick="location.href='profile.html'"><span id="userNameTxt" style="font-size:0.8rem;"></span><i class="fas fa-user-circle"></i></div></div></div>
     </nav>
 
     <div class="product-container">
-        <div class="gallery">
-            <img src="hode2.jpg" class="main-img"> </div>
+        <div class="gallery"><img src="hode2.jpg" class="main-img"></div>
         <div class="details">
-            <h1>Oversized Tee</h1>
-            <span class="price">400 EGP</span>
-            
-            <label>اللون:</label>
-            <div class="colors">
-                <div class="color-dot" style="background:black;" onclick="pickColor('Black', this)"></div>
-                <div class="color-dot" style="background:gray;" onclick="pickColor('Gray', this)"></div>
-            </div>
-            <p id="color-txt" style="font-size:0.9rem; color:#666;">لم يتم الاختيار</p>
-            
-            <label>المقاس:</label>
-            <select id="size-select"><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
-            
-            <label>الكمية:</label>
-            <input type="number" id="qty-input" value="1" min="1">
-            
+            <h1>Oversized Tee</h1><span class="price">400 EGP</span>
+            <p>اللون:</p><div class="colors"><div class="color-dot" style="background:black;" onclick="pickColor('Black', this)"></div><div class="color-dot" style="background:gray;" onclick="pickColor('Gray', this)"></div></div><p id="color-txt" style="color:#555; font-size:0.9rem;">لم يتم الاختيار</p>
+            <p>المقاس:</p><select id="size-select"><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+            <p>الكمية:</p><input type="number" id="qty-input" value="1" min="1">
             <button class="review-btn" onclick="openReview()">مراجعة الطلب</button>
-            
-            <div id="review-panel">
-                <h3 style="margin-top:0; color:#fff;">ملخص الطلب</h3>
-                <p style="color:#ccc; font-size:0.9rem;">المنتج: Oversized Tee <br> اللون: <span id="rev-color"></span> <br> المقاس: <span id="rev-size"></span> <br> العدد: <span id="rev-qty"></span></p>
-                <button onclick="goToCheckout()" class="confirm-btn">استكمال البيانات</button>
-            </div>
+            <div id="review-panel"><h3>ملخص الطلب</h3><p style="color:#ccc;">المنتج: Oversized Tee <br> اللون: <span id="rev-color"></span> <br> المقاس: <span id="rev-size"></span></p><button onclick="addToCart()" class="confirm-btn">إضافة للسلة 🛒</button></div>
         </div>
     </div>
 
-    <footer>
-        <div class="social-icons">
-            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-        </div>
-        <p style="font-size: 0.8rem; color: #666; margin-top:10px;">&copy; 2025 TRINEX. All Rights Reserved.</p>
-    </footer>
-
+    <footer><div class="social-icons"><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="instagram"><i class="fab fa-instagram"></i></a><a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a><a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a></div><p style="color:#666; font-size:0.8rem; margin-top:10px;">&copy; 2025 TRINEX.</p></footer>
     <a href="https://wa.me/201114519866" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <script>
-        // النافبار الذكي
         let lastScrollTop = 0; const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', function() { let scrollTop = window.pageYOffset || document.documentElement.scrollTop; if (scrollTop > lastScrollTop) { navbar.classList.add('nav-hidden'); } else { navbar.classList.remove('nav-hidden'); } lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; });
-
-        // التحقق من الدخول
-        window.onload = function() {
-            let isLogged = localStorage.getItem('trinex_user_logged'); let userName = localStorage.getItem('trinex_user_name');
-            if(isLogged === 'true') { document.getElementById('loginBtn').style.display = 'none'; document.getElementById('userProfile').style.display = 'flex'; document.getElementById('userNameTxt').innerText = userName; } else { document.getElementById('loginBtn').style.display = 'block'; document.getElementById('userProfile').style.display = 'none'; }
-        };
-
-        // منطق المنتج
+        window.onload = function() { let isLogged = localStorage.getItem('trinex_user_logged'); let userName = localStorage.getItem('trinex_user_name'); if(isLogged === 'true') { document.getElementById('loginBtn').style.display = 'none'; document.getElementById('userProfile').style.display = 'flex'; document.getElementById('userNameTxt').innerText = userName; } };
         let selectedColor = "";
         function pickColor(color, el) { selectedColor = color; document.getElementById('color-txt').innerText = "تم اختيار: " + color; let dots = document.getElementsByClassName('color-dot'); for(let dot of dots) dot.classList.remove('active'); el.classList.add('active'); }
-        
-        // مراجعة الطلب + سكرول بطيء
         function openReview() { 
-            if(!selectedColor) { alert("من فضلك اختر اللون أولاً"); return; } 
+            if(!selectedColor) { alert("اختر اللون أولاً"); return; } 
             document.getElementById('rev-color').innerText = selectedColor; 
             document.getElementById('rev-size').innerText = document.getElementById('size-select').value; 
-            document.getElementById('rev-qty').innerText = document.getElementById('qty-input').value; 
-            let panel = document.getElementById('review-panel'); 
-            panel.style.display = 'block'; 
-            setTimeout(() => { panel.style.opacity = '1'; }, 50); 
-            
-            // Custom Slow Scroll
+            let panel = document.getElementById('review-panel'); panel.style.display = 'block'; setTimeout(() => { panel.style.opacity = '1'; }, 50); 
+            // سكرول بطيء
             let start = window.scrollY; let end = panel.getBoundingClientRect().top + window.scrollY - 100; let distance = end - start; let startTime = null;
             function animation(currentTime) { if(startTime === null) startTime = currentTime; let timeElapsed = currentTime - startTime; let run = ease(timeElapsed, start, distance, 1000); window.scrollTo(0, run); if(timeElapsed < 1000) requestAnimationFrame(animation); }
-            function ease(t, b, c, d) { t /= d / 2; if (t < 1) return c / 2 * t * t + b; t--; return -c / 2 * (t * (t - 2) - 1) + b; }
-            requestAnimationFrame(animation);
+            function ease(t, b, c, d) { t /= d / 2; if (t < 1) return c / 2 * t * t + b; t--; return -c / 2 * (t * (t - 2) - 1) + b; } requestAnimationFrame(animation);
         }
         
-        function goToCheckout() { 
-            let orderDetails = { product: "Oversized Tee", color: selectedColor, size: document.getElementById('size-select').value, qty: document.getElementById('qty-input').value }; 
-            localStorage.setItem('trinexOrder', JSON.stringify(orderDetails)); window.location.href = "checkout.html"; 
+        // === كود الإضافة للسلة ===
+        function addToCart() {
+            let item = {
+                product: "Oversized Tee",
+                price: 400,
+                img: "hode2.jpg",
+                color: selectedColor,
+                size: document.getElementById('size-select').value,
+                qty: document.getElementById('qty-input').value
+            };
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            cart.push(item);
+            localStorage.setItem('trinex_cart', JSON.stringify(cart));
+            if(confirm("تمت الإضافة للسلة! الذهاب للدفع؟")) window.location.href = "cart.html";
         }
     </script>
 </body>

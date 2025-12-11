@@ -2,75 +2,115 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>TRINEX | تأكيد الطلب</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRINEX | Checkout</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root { --bg: #000; --text: #fff; --green: #00e676; --panel: #0a0a0a; --border: #333; }
-        body { font-family: 'Cairo'; background: var(--bg); color: var(--text); margin: 0; padding-top: 80px; min-height: 100vh; display: flex; flex-direction: column; }
-        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: 0.3s; box-sizing: border-box; }
-        .nav-hidden { transform: translateY(-100%); }
-        .brand-text { font-family: 'Montserrat'; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; } .nav-links a { color: #ccc; text-decoration: none; font-weight: bold; transition: 0.3s; } .nav-links a:hover { color: #fff; }
-        .user-area { display: flex; align-items: center; } .login-btn { background: var(--green); color: #000; padding: 6px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
-        .user-profile { display: none; align-items: center; gap: 8px; color: #fff; cursor: pointer; border: 1px solid #333; padding: 5px 10px; border-radius: 20px; }
+        :root { --bg-color: #000000; --text-color: #ffffff; --green-btn: #00e676; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; padding-top: 80px; }
         
-        .container { max-width: 600px; margin: 40px auto; background: var(--panel); padding: 30px; border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .order-summary { background: #151515; padding: 15px; margin-bottom: 20px; border-right: 4px solid var(--green); }
-        .auto-fill-badge { background: rgba(0, 230, 118, 0.1); color: var(--green); padding: 10px; border-radius: 5px; text-align: center; font-size: 0.9rem; margin-bottom: 20px; display: none; border: 1px dashed var(--green); }
-        .form-group { margin-bottom: 15px; } .form-group input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 5px; font-family: 'Cairo'; box-sizing: border-box; }
-        .submit-btn { width: 100%; padding: 15px; background: var(--green); color: #000; border: none; font-weight: bold; font-size: 1.1rem; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-        .back-link { display: block; text-align: center; margin-top: 15px; color: #888; text-decoration: none; }
-
-        footer { background: var(--panel); padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: auto; }
-        .social-icons a { color: #888; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icons a:hover { color: #fff; border-color: transparent; transform: translateY(-3px); }
-        .social-icons a.facebook:hover { background: #1877F2; } .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; } .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); } .social-icons a.telegram:hover { background: #229ED9; }
-        @media (max-width: 768px) { .nav-links { display: none; } }
+        /* Navbar */
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; }
+        .brand-text { font-family: 'Montserrat'; font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; }
+        
+        .container { max-width: 600px; margin: 40px auto; background: #0a0a0a; padding: 30px; border-radius: 10px; border: 1px solid #333; }
+        h1 { text-align: center; color: var(--green-btn); font-family: 'Montserrat'; }
+        
+        .order-summary { background: #151515; padding: 15px; margin-bottom: 20px; border-right: 4px solid var(--green-btn); font-size: 0.9rem; color: #ccc; }
+        .auto-fill-badge { background: rgba(0, 230, 118, 0.1); color: var(--green-btn); padding: 10px; border-radius: 5px; text-align: center; display: none; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 15px; }
+        input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 5px; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 15px; background: var(--green-btn); color: #000; border: none; font-weight: bold; font-size: 1.1rem; border-radius: 5px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <nav id="navbar">
-        <a href="index.html" class="brand-text">TRINEX</a>
-        <div class="nav-links"><a href="index.html">الرئيسية</a><a href="about.html">من نحن</a></div>
-        <div class="user-area"><a href="login.html" id="loginBtn" class="login-btn">دخول</a><div id="userProfile" class="user-profile" onclick="location.href='profile.html'"><span id="userNameTxt" style="font-size:0.8rem;"></span><i class="fas fa-user-circle"></i></div></div>
-    </nav>
+
+    <nav><a href="index.html" class="brand-text">TRINEX</a></nav>
 
     <div class="container">
-        <h1 style="text-align:center; color:var(--green); font-family:'Montserrat'; margin-top:0;">CHECKOUT</h1>
-        <div class="order-summary"><h3>ملخص الطلب:</h3><p id="summ-product">...</p><p id="summ-details">...</p></div>
-        <div id="autoMsg" class="auto-fill-badge">✨ تم ملء بياناتك تلقائياً</div>
-        <form id="checkoutForm" onsubmit="return validateAndSend(event)">
-            <div class="form-group"><input type="text" id="fullName" placeholder="الاسم الثلاثي" required></div>
+        <h1>تأكيد الطلب 🛒</h1>
+        
+        <div id="orderList" class="order-summary">
+            جاري تحميل السلة...
+        </div>
+
+        <div id="autoMsg" class="auto-fill-badge">✨ تم ملء البيانات تلقائياً</div>
+
+        <form onsubmit="sendOrder(event)">
+            <div class="form-group"><input type="text" id="fullName" placeholder="الاسم" required></div>
             <div class="form-group"><input type="tel" id="phone1" placeholder="رقم الموبايل" required></div>
             <div class="form-group"><input type="tel" id="phone2" placeholder="رقم احتياطي"></div>
-            <div class="form-group"><textarea id="address" rows="3" placeholder="العنوان بالتفصيل" required></textarea></div>
-            <button type="submit" class="submit-btn">تأكيد الطلب (واتساب) <i class="fab fa-whatsapp"></i></button>
-            <a href="index.html" class="back-link">إلغاء</a>
+            <div class="form-group"><textarea id="address" rows="3" placeholder="العنوان" required></textarea></div>
+            <button type="submit" class="submit-btn">إرسال الطلب (واتساب) <i class="fab fa-whatsapp"></i></button>
         </form>
     </div>
 
-    <footer><div class="social-icons"><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="instagram"><i class="fab fa-instagram"></i></a><a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a><a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a></div><p style="color:#666; font-size:0.8rem; margin-top:10px;">&copy; 2025 TRINEX.</p></footer>
-
     <script>
-        let lastScrollTop = 0; const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', function() { let scrollTop = window.pageYOffset || document.documentElement.scrollTop; if (scrollTop > lastScrollTop) { navbar.classList.add('nav-hidden'); } else { navbar.classList.remove('nav-hidden'); } lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; });
+        let cart = [];
+
         window.onload = function() {
-            checkNavLogin();
-            let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
-            if(productData.product) { document.getElementById('summ-product').innerText = "📦 " + productData.product; document.getElementById('summ-details').innerText = `المواصفات: ${productData.color} | مقاس ${productData.size} | عدد ${productData.qty}`; }
+            // 1. جلب السلة
+            cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            let listDiv = document.getElementById('orderList');
+            
+            if(cart.length === 0) {
+                listDiv.innerHTML = "السلة فارغة!";
+            } else {
+                let total = 0;
+                let html = "<strong>المنتجات المطلوبة:</strong><br><br>";
+                cart.forEach(item => {
+                    let sub = item.price * item.qty;
+                    total += sub;
+                    html += `• ${item.product} (${item.color}, ${item.size}) x${item.qty} = ${sub} EGP<br>`;
+                });
+                html += `<br><strong style="color:#fff; font-size:1.1rem;">الإجمالي: ${total} EGP</strong>`;
+                listDiv.innerHTML = html;
+            }
+
+            // 2. التعبئة التلقائية
             let savedInfo = JSON.parse(localStorage.getItem('trinex_saved_info'));
-            if(savedInfo) { document.getElementById('fullName').value = savedInfo.name || ""; document.getElementById('phone1').value = savedInfo.phone || ""; document.getElementById('phone2').value = savedInfo.phone2 || ""; document.getElementById('address').value = savedInfo.address || ""; document.getElementById('autoMsg').style.display = 'block'; }
+            if(savedInfo) {
+                document.getElementById('fullName').value = savedInfo.name || "";
+                document.getElementById('phone1').value = savedInfo.phone || "";
+                document.getElementById('phone2').value = savedInfo.phone2 || "";
+                document.getElementById('address').value = savedInfo.address || "";
+                document.getElementById('autoMsg').style.display = 'block';
+            }
         };
-        function checkNavLogin() { let isLogged = localStorage.getItem('trinex_user_logged'); let userName = localStorage.getItem('trinex_user_name'); if(isLogged === 'true') { document.getElementById('loginBtn').style.display = 'none'; document.getElementById('userProfile').style.display = 'flex'; document.getElementById('userNameTxt').innerText = userName; } }
-        function validateAndSend(e) {
+
+        function sendOrder(e) {
             e.preventDefault();
-            let name = document.getElementById('fullName').value; let p1 = document.getElementById('phone1').value; let p2 = document.getElementById('phone2').value; let addr = document.getElementById('address').value;
-            let productData = JSON.parse(localStorage.getItem('trinexOrder')) || {};
-            let myNumber = "201114519866"; 
-            let message = `🛒 *طلب جديد*%0a📦 ${productData.product}%0a🎨 ${productData.color} | 📏 ${productData.size} | 🔢 ${productData.qty}%0a----------------%0a👤 ${name}%0a📱 ${p1}%0a📞 ${p2}%0a🏠 ${addr}`;
-            window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
+            if(cart.length === 0) { alert("السلة فارغة!"); return; }
+
+            let name = document.getElementById('fullName').value;
+            let p1 = document.getElementById('phone1').value;
+            let p2 = document.getElementById('phone2').value;
+            let addr = document.getElementById('address').value;
+
+            // تجهيز نص الرسالة
+            let itemsText = cart.map(i => `▪️ ${i.product} (${i.color}, ${i.size}) - العدد: ${i.qty}`).join('%0a');
+            let total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+            let myNumber = "201114519866";
+            let msg = `🛒 *طلب جديد من الموقع*%0a` +
+                      `-----------------------%0a` +
+                      `${itemsText}%0a` +
+                      `-----------------------%0a` +
+                      `💰 *الإجمالي:* ${total} EGP%0a` +
+                      `👤 *الاسم:* ${name}%0a` +
+                      `📱 *موبايل:* ${p1}%0a` +
+                      `📞 *احتياطي:* ${p2}%0a` +
+                      `🏠 *العنوان:* ${addr}`;
+
+            // تفريغ السلة بعد الطلب (اختياري، بس أفضل)
+            localStorage.removeItem('trinex_cart');
+            
+            window.open(`https://wa.me/${myNumber}?text=${msg}`, '_blank');
+            window.location.href = "index.html"; // رجوع للرئيسية
         }
     </script>
 </body>

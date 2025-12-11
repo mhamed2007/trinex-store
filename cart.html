@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRINEX | سلة المشتريات</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #000; --panel: #0a0a0a; --green: #00e676; --text: #fff; --border: #333; }
+        body { font-family: 'Cairo'; background: var(--bg); color: var(--text); margin: 0; padding-top: 80px; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Navbar */
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+        .brand-text { font-family: 'Montserrat'; font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .back-home { color: #888; text-decoration: none; }
+
+        /* Cart Styles */
+        .cart-container { max-width: 800px; margin: 40px auto; padding: 20px; min-height: 50vh; }
+        h1 { color: var(--green); text-align: center; font-family: 'Montserrat'; margin-bottom: 30px; }
+        
+        .cart-item { display: flex; align-items: center; background: var(--panel); border: 1px solid var(--border); padding: 15px; margin-bottom: 15px; border-radius: 10px; position: relative; }
+        .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 5px; margin-left: 15px; }
+        .item-details h3 { margin: 0 0 5px; font-size: 1.1rem; }
+        .item-details p { margin: 0; color: #888; font-size: 0.9rem; }
+        .item-price { margin-right: auto; font-weight: bold; color: var(--green); font-size: 1.1rem; }
+        .remove-btn { background: none; border: none; color: #ff3333; cursor: pointer; font-size: 1.2rem; margin-right: 15px; }
+
+        .total-box { background: var(--panel); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--green); margin-top: 20px; }
+        .checkout-btn { background: var(--green); color: #000; border: none; padding: 15px 40px; font-weight: bold; font-size: 1.1rem; border-radius: 5px; cursor: pointer; margin-top: 15px; width: 100%; transition: 0.3s; }
+        .checkout-btn:hover { background: #fff; }
+        .empty-cart { text-align: center; color: #666; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="brand-text">TRINEX</a>
+        <a href="index.html" class="back-home">تابع التسوق</a>
+    </nav>
+
+    <div class="cart-container">
+        <h1>YOUR CART 🛒</h1>
+        <div id="cartItems"></div>
+        
+        <div id="cartSummary" class="total-box" style="display:none;">
+            <h3>الإجمالي: <span id="totalPrice">0</span> EGP</h3>
+            <button onclick="goToCheckout()" class="checkout-btn">إتمام الشراء ✅</button>
+        </div>
+    </div>
+
+    <script>
+        // تحميل السلة عند الفتح
+        window.onload = function() {
+            renderCart();
+        };
+
+        function renderCart() {
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            let container = document.getElementById('cartItems');
+            let summary = document.getElementById('cartSummary');
+            let total = 0;
+
+            if(cart.length === 0) {
+                container.innerHTML = `<div class="empty-state">
+                    <i class="fas fa-shopping-basket" style="font-size:3rem; color:#333; margin-bottom:20px;"></i>
+                    <p>السلة فارغة يا صديقي!</p>
+                    <a href="index.html" style="color:#00e676;">تصفح المنتجات</a>
+                </div>`;
+                summary.style.display = 'none';
+                return;
+            }
+
+            summary.style.display = 'block';
+            container.innerHTML = cart.map((item, index) => {
+                let itemTotal = item.price * item.qty;
+                total += itemTotal;
+                return `
+                <div class="cart-item">
+                    <img src="${item.img || 'hode1.jpg'}"> <div class="item-details">
+                        <h3>${item.product}</h3>
+                        <p>اللون: ${item.color} | المقاس: ${item.size}</p>
+                        <p>الكمية: ${item.qty}</p>
+                    </div>
+                    <div class="item-price">${itemTotal} EGP</div>
+                    <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button>
+                </div>
+                `;
+            }).join('');
+
+            document.getElementById('totalPrice').innerText = total;
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            cart.splice(index, 1); // حذف العنصر
+            localStorage.setItem('trinex_cart', JSON.stringify(cart));
+            renderCart(); // إعادة رسم السلة
+        }
+
+        function goToCheckout() {
+            window.location.href = "checkout.html";
+        }
+    </script>
+</body>
+</html>
