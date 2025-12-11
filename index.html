@@ -5,90 +5,324 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRINEX | Official Store</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --bg: #000; --text: #fff; --green: #00e676; --panel: #0a0a0a; --border: #333; }
-        body { font-family: 'Cairo'; background: var(--bg); color: var(--text); margin: 0; padding-top: 80px; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 30px 30px; }
+        /* === 1. Global Styles === */
+        :root { --bg: #000; --panel: #0a0a0a; --green: #00e676; --text: #fff; --border: #333; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; padding-top: 80px; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 30px 30px; }
         
-        /* Navbar */
-        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; transition: 0.3s; box-sizing: border-box; }
+        /* === 2. Navbar === */
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: 0.3s; box-sizing: border-box; }
         .nav-hidden { transform: translateY(-100%); }
-        .brand-text { font-family: 'Montserrat'; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; } .nav-links a { color: #ccc; text-decoration: none; font-weight: 600; transition: 0.3s; } .nav-links a:hover, .nav-links a.active { color: #fff; border-bottom: 2px solid var(--green); }
-        .nav-icons { display: flex; gap: 15px; align-items: center; } .nav-icons i { color: #fff; cursor: pointer; font-size: 1.1rem; } .nav-icons i:hover { color: var(--green); }
-        .user-area { display: flex; align-items: center; }
-        .login-btn { background: var(--green); color: #000; padding: 6px 15px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+        .brand-text { font-family: 'Montserrat'; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; cursor: pointer; }
+        .nav-links { display: flex; gap: 20px; } 
+        .nav-links a { color: #ccc; text-decoration: none; font-weight: 600; transition: 0.3s; cursor: pointer; } 
+        .nav-links a:hover, .nav-links a.active { color: #fff; border-bottom: 2px solid var(--green); }
+        .nav-icons i { color: #fff; font-size: 1.1rem; cursor: pointer; margin-right: 15px; } .nav-icons i:hover { color: var(--green); }
+        .user-area { display: flex; align-items: center; } 
+        .login-btn { background: var(--green); color: #000; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; cursor: pointer; }
         .user-profile { display: none; align-items: center; gap: 8px; color: #fff; cursor: pointer; border: 1px solid #333; padding: 5px 10px; border-radius: 20px; }
 
-        /* Products */
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        .card { background: var(--panel); border: 1px solid var(--border); width: 300px; border-radius: 10px; overflow: hidden; transition: 0.3s; position: relative; }
+        /* === 3. Sections Management === */
+        section { display: none; padding: 20px; animation: fadeIn 0.5s; }
+        section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* === 4. Product Cards === */
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--panel); border: 1px solid var(--border); width: 300px; border-radius: 10px; overflow: hidden; transition: 0.3s; }
         .card:hover { transform: translateY(-5px); border-color: #555; }
-        .img-area { display: block; width: 100%; height: 320px; overflow: hidden; background: #111; }
+        .img-area { width: 100%; height: 320px; overflow: hidden; background: #111; cursor: pointer; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .card:hover .img-area img { filter: grayscale(0%); transform: scale(1.05); }
-        .card-actions { display: flex; justify-content: space-between; padding: 10px 15px; background: #111; border-bottom: 1px solid #222; }
-        .action-btn { background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
-        .action-btn:hover { color: #fff; transform: scale(1.2); }
+        .card:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        .card-actions { display: flex; justify-content: space-between; padding: 10px 15px; background: #111; }
+        .action-btn { background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem; }
         .action-btn.liked { color: #ff0050; } .action-btn.saved { color: #FFD700; }
         .info { padding: 15px; text-align: right; }
         .price { display: block; margin-top: 5px; color: #aaa; font-weight: bold; }
-        .buy-btn { display: block; width: 100%; padding: 10px 0; margin-top: 15px; border: 1px solid #fff; background: transparent; color: #fff; text-decoration: none; text-align: center; font-family: 'Montserrat'; font-weight: 900; transition: 0.3s; border-radius: 5px; }
+        .buy-btn { display: block; width: 100%; padding: 10px 0; margin-top: 15px; background: transparent; border: 1px solid #fff; color: #fff; font-weight: 900; border-radius: 5px; cursor: pointer; }
         .buy-btn:hover { background: #fff; color: #000; }
 
-        footer { background: var(--panel); padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
-        .social-icons a { color: #888; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icons a:hover { color: #fff; border-color: transparent; transform: translateY(-3px); }
-        .social-icons a.facebook:hover { background: #1877F2; } .social-icons a.tiktok:hover { background: #000; border-color: #fff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2ea; } .social-icons a.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); } .social-icons a.telegram:hover { background: #229ED9; }
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; text-decoration: none; }
+        /* === 5. Forms & Auth === */
+        .auth-container, .checkout-container, .profile-container { max-width: 500px; margin: 20px auto; background: var(--panel); padding: 30px; border-radius: 10px; border: 1px solid var(--border); }
+        input, select, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 5px; margin-bottom: 15px; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 15px; background: var(--green); color: #000; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
 
-        @media (max-width: 768px) { nav { padding: 15px; } .nav-links { display: none; } }
+        /* === 6. Product Details View === */
+        .product-view { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; }
+        .view-img { flex: 1; border-radius: 10px; border: 1px solid #333; }
+        .view-details { flex: 1; text-align: right; }
+        .colors { display: flex; gap: 10px; margin-top: 10px; } .color-dot { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #333; } .color-dot.active { border-color: #fff; }
+
+        /* === 7. Cart === */
+        .cart-item { display: flex; align-items: center; background: var(--panel); padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--border); }
+        .cart-item img { width: 60px; height: 60px; border-radius: 5px; margin-left: 15px; }
+
+        /* Footer */
+        footer { background: var(--panel); padding: 40px; text-align: center; margin-top: 50px; border-top: 1px solid var(--border); }
+        .social-icons a { color: #888; font-size: 1.5rem; margin: 0 10px; }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; }
+
+        @media (max-width: 768px) { .nav-links { display: none; } }
     </style>
 </head>
 <body>
+
     <nav id="navbar">
-        <a href="index.html" class="brand-text">TRINEX</a>
-        <div class="nav-links"><a href="index.html" class="active">الرئيسية</a><a href="winter.html">شتوي</a><a href="summer.html">صيفي</a><a href="sweatpants.html">سويت بانتس</a><a href="about.html">من نحن</a></div>
+        <a onclick="showSection('home')" class="brand-text">TRINEX</a>
+        <div class="nav-links">
+            <a onclick="showSection('home')" class="active">الرئيسية</a>
+            <a onclick="showSection('winter')">شتوي</a>
+            <a onclick="showSection('summer')">صيفي</a>
+            <a onclick="showSection('about')">من نحن</a>
+        </div>
         <div class="nav-icons">
             <i class="fas fa-search"></i>
-            <a href="cart.html" style="color:#fff;"><i class="fas fa-shopping-bag"></i></a>
-            <div class="user-area"><a href="login.html" id="loginBtn" class="login-btn">دخول</a><div id="userProfile" class="user-profile" onclick="location.href='profile.html'"><span id="userNameTxt" style="font-size:0.8rem;"></span><i class="fas fa-user-circle"></i></div></div>
+            <a onclick="showSection('cart')" style="color:#fff;"><i class="fas fa-shopping-bag"></i></a>
+            <div class="user-area">
+                <span id="loginBtn" class="login-btn" onclick="showSection('login')">دخول</span>
+                <div id="userProfile" class="user-profile" onclick="showSection('profile')">
+                    <span id="userNameTxt" style="font-size:0.8rem;"></span><i class="fas fa-user-circle"></i>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="card" data-id="p1" data-name="Black Hoodie V1" data-price="650" data-img="hode1.jpg" data-link="hoodie1.html">
-            <a href="hoodie1.html" class="img-area"><img src="hode1.jpg"></a>
-            <div class="card-actions"><button class="action-btn" onclick="toggleAction(this, 'like')"><i class="far fa-heart"></i></button><button class="action-btn" onclick="toggleAction(this, 'save')"><i class="far fa-bookmark"></i></button></div>
-            <div class="info"><h3>Black Hoodie V1</h3><span class="price">650 EGP</span><a href="hoodie1.html" class="buy-btn">BUY NOW</a></div>
+    <section id="home" class="active">
+        <div class="container">
+            <div class="card" data-id="p1">
+                <div class="img-area" onclick="openProduct('Black Hoodie V1', 650, 'hode1.jpg')"><img src="hode1.jpg"></div>
+                <div class="card-actions"><button class="action-btn" onclick="toggleAction(this, 'like')"><i class="far fa-heart"></i></button><button class="action-btn" onclick="toggleAction(this, 'save')"><i class="far fa-bookmark"></i></button></div>
+                <div class="info"><h3>Black Hoodie V1</h3><span class="price">650 EGP</span><button class="buy-btn" onclick="openProduct('Black Hoodie V1', 650, 'hode1.jpg')">BUY NOW</button></div>
+            </div>
+            <div class="card" data-id="p2">
+                <div class="img-area" onclick="openProduct('Oversized Tee', 400, 'hode2.jpg')"><img src="hode2.jpg"></div>
+                <div class="card-actions"><button class="action-btn" onclick="toggleAction(this, 'like')"><i class="far fa-heart"></i></button><button class="action-btn" onclick="toggleAction(this, 'save')"><i class="far fa-bookmark"></i></button></div>
+                <div class="info"><h3>Oversized Tee</h3><span class="price">400 EGP</span><button class="buy-btn" onclick="openProduct('Oversized Tee', 400, 'hode2.jpg')">BUY NOW</button></div>
+            </div>
+            <div class="card" data-id="p3">
+                <div class="img-area" onclick="openProduct('Tactical Vest', 850, 'hode3.jpg')"><img src="hode3.jpg"></div>
+                <div class="card-actions"><button class="action-btn" onclick="toggleAction(this, 'like')"><i class="far fa-heart"></i></button><button class="action-btn" onclick="toggleAction(this, 'save')"><i class="far fa-bookmark"></i></button></div>
+                <div class="info"><h3>Tactical Vest</h3><span class="price">850 EGP</span><button class="buy-btn" onclick="openProduct('Tactical Vest', 850, 'hode3.jpg')">BUY NOW</button></div>
+            </div>
         </div>
-        <div class="card" data-id="p2" data-name="Oversized Tee" data-price="400" data-img="hode2.jpg" data-link="hoodie2.html">
-            <a href="hoodie2.html" class="img-area"><img src="hode2.jpg"></a>
-            <div class="card-actions"><button class="action-btn" onclick="toggleAction(this, 'like')"><i class="far fa-heart"></i></button><button class="action-btn" onclick="toggleAction(this, 'save')"><i class="far fa-bookmark"></i></button></div>
-            <div class="info"><h3>Oversized Tee</h3><span class="price">400 EGP</span><a href="hoodie2.html" class="buy-btn">BUY NOW</a></div>
+    </section>
+
+    <section id="product">
+        <div class="product-view">
+            <img id="p_img" src="" class="view-img">
+            <div class="view-details">
+                <h1 id="p_title">Product Name</h1>
+                <span id="p_price" class="price" style="font-size:1.5rem;">000 EGP</span>
+                <p>اللون:</p><div class="colors"><div class="color-dot" style="background:black;" onclick="selColor='Black'"></div><div class="color-dot" style="background:white;" onclick="selColor='White'"></div></div>
+                <p>المقاس:</p><select id="p_size"><option>M</option><option>L</option><option>XL</option></select>
+                <p>الكمية:</p><input type="number" id="p_qty" value="1" min="1">
+                <button class="submit-btn" onclick="addToCart()">إضافة للسلة 🛒</button>
+                <button onclick="showSection('home')" style="background:none; border:none; color:#888; margin-top:10px; cursor:pointer;">عودة</button>
+            </div>
         </div>
-        <div class="card" data-id="p3" data-name="Tactical Vest" data-price="850" data-img="hode3.jpg" data-link="hoodie3.html">
-            <a href="hoodie3.html" class="img-area"><img src="hode3.jpg"></a>
-            <div class="card-actions"><button class="action-btn" onclick="toggleAction(this, 'like')"><i class="far fa-heart"></i></button><button class="action-btn" onclick="toggleAction(this, 'save')"><i class="far fa-bookmark"></i></button></div>
-            <div class="info"><h3>Tactical Vest</h3><span class="price">850 EGP</span><a href="hoodie3.html" class="buy-btn">BUY NOW</a></div>
+    </section>
+
+    <section id="cart">
+        <h1 style="text-align:center; color:var(--green);">MY CART 🛒</h1>
+        <div id="cartList" style="max-width:600px; margin:0 auto;"></div>
+        <div style="text-align:center; margin-top:20px;">
+            <h3>الإجمالي: <span id="cartTotal">0</span> EGP</h3>
+            <button class="submit-btn" style="max-width:300px;" onclick="showSection('checkout')">إتمام الشراء ✅</button>
         </div>
-    </div>
+    </section>
+
+    <section id="checkout">
+        <div class="auth-container">
+            <h2 style="text-align:center; color:var(--green);">تأكيد الطلب</h2>
+            <div id="autoFillMsg" style="color:var(--green); text-align:center; display:none; margin-bottom:10px;">✨ تم ملء البيانات تلقائياً</div>
+            <form onsubmit="sendWhatsapp(event)">
+                <input type="text" id="co_name" placeholder="الاسم" required>
+                <input type="tel" id="co_phone" placeholder="الموبايل" required>
+                <textarea id="co_address" rows="3" placeholder="العنوان" required></textarea>
+                <button type="submit" class="submit-btn">إرسال الطلب (واتساب)</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="login">
+        <div class="auth-container">
+            <h2 style="text-align:center; margin-bottom:20px;">تسجيل الدخول</h2>
+            <input type="tel" id="l_phone" placeholder="رقم الموبايل">
+            <input type="password" id="l_pass" placeholder="كلمة المرور">
+            <button class="submit-btn" onclick="fakeLogin()">دخول (تجريبي)</button>
+            <p style="text-align:center; margin-top:10px; font-size:0.8rem; color:#888;">ليس لديك حساب؟ اتصل بنا لإنشاء واحد.</p>
+        </div>
+    </section>
+
+    <section id="profile">
+        <div class="profile-container">
+            <h2 style="text-align:center;">ملفي الشخصي</h2>
+            <div style="background:#111; padding:20px; border-radius:10px;">
+                <h3>بيانات الشحن</h3>
+                <input type="text" id="prof_name" placeholder="الاسم">
+                <input type="tel" id="prof_phone" placeholder="الموبايل" readonly style="background:#222;">
+                <input type="text" id="prof_addr" placeholder="العنوان">
+                <button class="submit-btn" onclick="saveProfile()">حفظ التعديلات</button>
+            </div>
+            <button onclick="logout()" style="margin-top:20px; background:#333; color:red; border:none; padding:10px; width:100%; cursor:pointer;">تسجيل خروج</button>
+        </div>
+    </section>
+
+    <section id="about"><h1 style="text-align:center;">من نحن</h1><p style="text-align:center;">TRINEX: براند مصري بلمسة مستقبلية.</p></section>
+    <section id="winter"><h1 style="text-align:center;">شتوي ❄️</h1><p style="text-align:center;">قريباً...</p></section>
+    <section id="summer"><h1 style="text-align:center;">صيفي ☀️</h1><p style="text-align:center;">قريباً...</p></section>
 
     <footer>
-        <div class="social-icons"><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="instagram"><i class="fab fa-instagram"></i></a><a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a><a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a></div>
-        <p style="font-size: 0.8rem; color: #666; margin-top:10px;">&copy; 2025 TRINEX. All Rights Reserved.</p>
+        <div class="social-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
+        <p style="color:#666; margin-top:10px;">&copy; 2025 TRINEX.</p>
     </footer>
     <a href="https://wa.me/201114519866" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <script>
+        // === التنقل بين الصفحات ===
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0, 0); // اطلع لفوق
+            
+            // لو فتحنا السلة، حملها
+            if(id === 'cart') loadCart();
+            // لو فتحنا الدفع، عبي البيانات
+            if(id === 'checkout') autoFill();
+        }
+
+        // === منطق المنتجات ===
+        let curProduct = {};
+        let selColor = "";
+        
+        function openProduct(title, price, img) {
+            curProduct = { title, price, img };
+            document.getElementById('p_title').innerText = title;
+            document.getElementById('p_price').innerText = price + " EGP";
+            document.getElementById('p_img').src = img;
+            showSection('product');
+        }
+
+        function addToCart() {
+            if(!selColor) { alert("اختر اللون!"); return; }
+            let item = {
+                ...curProduct,
+                color: selColor,
+                size: document.getElementById('p_size').value,
+                qty: document.getElementById('p_qty').value
+            };
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            cart.push(item);
+            localStorage.setItem('trinex_cart', JSON.stringify(cart));
+            if(confirm("تمت الإضافة! الذهاب للسلة؟")) showSection('cart');
+        }
+
+        // === السلة ===
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            let div = document.getElementById('cartList');
+            let total = 0;
+            if(cart.length === 0) { div.innerHTML = "<p style='text-align:center;'>السلة فارغة</p>"; return; }
+            
+            div.innerHTML = cart.map((i, idx) => {
+                total += i.price * i.qty;
+                return `<div class="cart-item"><img src="${i.img}"><div><h4>${i.title}</h4><p>${i.color} | ${i.size} | x${i.qty}</p></div><button onclick="delItem(${idx})" style="color:red; background:none; border:none; cursor:pointer;"><i class="fas fa-trash"></i></button></div>`;
+            }).join('');
+            document.getElementById('cartTotal').innerText = total;
+        }
+
+        function delItem(idx) {
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            cart.splice(idx, 1);
+            localStorage.setItem('trinex_cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        // === الدفع والبروفايل ===
+        function autoFill() {
+            let data = JSON.parse(localStorage.getItem('trinex_user_data'));
+            if(data) {
+                document.getElementById('co_name').value = data.name;
+                document.getElementById('co_phone').value = data.phone;
+                document.getElementById('co_address').value = data.addr;
+                document.getElementById('autoFillMsg').style.display = 'block';
+            }
+        }
+
+        function sendWhatsapp(e) {
+            e.preventDefault();
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            if(cart.length === 0) { alert("السلة فاضية!"); return; }
+            
+            let name = document.getElementById('co_name').value;
+            let phone = document.getElementById('co_phone').value;
+            let addr = document.getElementById('co_address').value;
+            
+            let items = cart.map(i => `▪️ ${i.title} (${i.color}, ${i.size}) x${i.qty}`).join('%0a');
+            let total = document.getElementById('cartTotal').innerText;
+            
+            let msg = `🛒 *أوردر جديد*%0a----------------%0a${items}%0a----------------%0a💰 الإجمالي: ${total} EGP%0a👤 ${name}%0a📱 ${phone}%0a🏠 ${addr}`;
+            
+            localStorage.removeItem('trinex_cart'); // فضي السلة
+            window.open(`https://wa.me/201114519866?text=${msg}`, '_blank');
+            showSection('home');
+        }
+
+        // === تسجيل الدخول البسيط ===
+        function fakeLogin() {
+            let phone = document.getElementById('l_phone').value;
+            if(phone.length < 11) { alert("رقم خطأ"); return; }
+            localStorage.setItem('trinex_logged', 'true');
+            localStorage.setItem('trinex_phone', phone);
+            checkLogin();
+            showSection('home');
+        }
+
+        function checkLogin() {
+            if(localStorage.getItem('trinex_logged')) {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('userProfile').style.display = 'flex';
+                document.getElementById('userNameTxt').innerText = "حسابي";
+                document.getElementById('prof_phone').value = localStorage.getItem('trinex_phone');
+                
+                let saved = JSON.parse(localStorage.getItem('trinex_user_data'));
+                if(saved) {
+                    document.getElementById('prof_name').value = saved.name;
+                    document.getElementById('prof_addr').value = saved.addr;
+                }
+            } else {
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('userProfile').style.display = 'none';
+            }
+        }
+
+        function saveProfile() {
+            let data = {
+                name: document.getElementById('prof_name').value,
+                phone: document.getElementById('prof_phone').value,
+                addr: document.getElementById('prof_addr').value
+            };
+            localStorage.setItem('trinex_user_data', JSON.stringify(data));
+            alert("تم الحفظ!");
+        }
+
+        function logout() {
+            if(confirm("خروج؟")) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
+
+        // تشغيل عند الفتح
+        window.onload = checkLogin;
+        
+        // Navbar Scroll
         let lastScrollTop = 0; const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', function() { let scrollTop = window.pageYOffset || document.documentElement.scrollTop; if (scrollTop > lastScrollTop) { navbar.classList.add('nav-hidden'); } else { navbar.classList.remove('nav-hidden'); } lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; });
-        window.onload = function() { checkNavLogin(); restoreActions(); };
-        function checkNavLogin() { let isLogged = localStorage.getItem('trinex_user_logged'); let userName = localStorage.getItem('trinex_user_name'); if(isLogged === 'true') { document.getElementById('loginBtn').style.display = 'none'; document.getElementById('userProfile').style.display = 'flex'; document.getElementById('userNameTxt').innerText = userName || "حسابي"; } else { document.getElementById('loginBtn').style.display = 'block'; document.getElementById('userProfile').style.display = 'none'; } }
-        function toggleAction(btn, type) { let isLogged = localStorage.getItem('trinex_user_logged'); if(isLogged !== 'true') { alert("يجب تسجيل الدخول أولاً!"); window.location.href = "login.html"; return; } let card = btn.closest('.card'); let product = { id: card.dataset.id, name: card.dataset.name, price: card.dataset.price, img: card.dataset.img, link: card.dataset.link }; let icon = btn.querySelector('i'); let storageKey = type === 'like' ? 'trinex_likes' : 'trinex_saved'; let list = JSON.parse(localStorage.getItem(storageKey)) || []; let exists = list.some(p => p.id === product.id); if (exists) { list = list.filter(p => p.id !== product.id); icon.classList.replace('fas', 'far'); btn.classList.remove(type === 'like' ? 'liked' : 'saved'); } else { list.push(product); icon.classList.replace('far', 'fas'); btn.classList.add(type === 'like' ? 'liked' : 'saved'); } localStorage.setItem(storageKey, JSON.stringify(list)); }
-        function restoreActions() { let likes = JSON.parse(localStorage.getItem('trinex_likes')) || []; let saved = JSON.parse(localStorage.getItem('trinex_saved')) || []; document.querySelectorAll('.card').forEach(card => { let id = card.dataset.id; if(likes.some(p => p.id === id)) { let btn = card.querySelectorAll('.action-btn')[0]; btn.classList.add('liked'); btn.querySelector('i').classList.replace('far', 'fas'); } if(saved.some(p => p.id === id)) { let btn = card.querySelectorAll('.action-btn')[1]; btn.classList.add('saved'); btn.querySelector('i').classList.replace('far', 'fas'); } }); }
     </script>
 </body>
 </html>
