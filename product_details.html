@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRINEX | تفاصيل المنتج</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #000; --text: #fff; --green: #00e676; --panel: #0a0a0a; --border: #333; }
+        body { font-family: 'Cairo'; background: var(--bg); color: var(--text); margin: 0; padding-top: 80px; }
+        nav { background: rgba(0,0,0,0.95); border-bottom: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; box-sizing: border-box; }
+        .brand-text { font-family: 'Montserrat'; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .product-view { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; padding: 20px; }
+        .view-img { width: 100%; border-radius: 10px; border: 1px solid #333; }
+        .view-details { flex: 1; min-width: 300px; text-align: right; }
+        h1 { font-family: 'Montserrat'; font-size: 2.2rem; margin: 0; }
+        .price { font-size: 1.8rem; color: #ccc; font-weight: bold; margin: 10px 0 20px; display: block; }
+        select, input { width: 100%; padding: 12px; background: #111; color: #fff; border: 1px solid #333; margin-top: 10px; border-radius: 5px; }
+        .confirm-btn { width: 100%; padding: 15px; background: #fff; color: #000; border: none; font-weight: bold; border-radius: 5px; margin-top: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="brand-text">TRINEX</a></nav>
+
+    <div class="product-view">
+        <div style="flex:1;"><img id="p_img" src="" class="view-img"></div>
+        <div class="view-details">
+            <h1 id="p_name">...</h1>
+            <span id="p_price" class="price">...</span>
+            <label>المقاس:</label>
+            <select id="p_size"><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+            <label>الكمية:</label>
+            <input type="number" id="p_qty" value="1" min="1">
+            <button class="confirm-btn" onclick="addToCart()">إضافة للسلة 🛒</button>
+        </div>
+    </div>
+
+    <script>
+        // تحميل بيانات المنتج من الذاكرة
+        let product = JSON.parse(localStorage.getItem('current_product'));
+        if(product) {
+            document.getElementById('p_name').innerText = product.name;
+            document.getElementById('p_price').innerText = product.price + " EGP";
+            document.getElementById('p_img').src = product.img;
+        } else {
+            document.body.innerHTML = "<h1 style='text-align:center; margin-top:50px;'>المنتج غير موجود</h1>";
+        }
+
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem('trinex_cart')) || [];
+            let item = {
+                product: product.name,
+                price: product.price,
+                img: product.img,
+                size: document.getElementById('p_size').value,
+                qty: document.getElementById('p_qty').value,
+                color: "Default" // ممكن تزود ألوان لو حبيت
+            };
+            cart.push(item);
+            localStorage.setItem('trinex_cart', JSON.stringify(cart));
+            if(confirm("تمت الإضافة! الذهاب للسلة؟")) window.location.href = "cart.html";
+        }
+    </script>
+</body>
+</html>
